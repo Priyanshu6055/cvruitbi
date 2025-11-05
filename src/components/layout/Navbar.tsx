@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
+import Button from "@/components/ui/Button"; 
 
 interface NavLink {
   name: string;
@@ -13,10 +14,13 @@ interface NavLink {
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
 
-  // ✅ Strongly typed function
-  const toggleDropdown = (menu: string) =>
-    setOpenDropdown(openDropdown === menu ? null : menu);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const links: NavLink[] = [
     { name: "Home", href: "/" },
@@ -31,55 +35,76 @@ export default function Navbar() {
         { name: "Partners", href: "/partners" },
       ],
     },
-    {
-      name: "Program",
-      subLinks: [{ name: "Program", href: "/program" }],
-    },
-    {
-      name: "Facility",
-      subLinks: [{ name: "Facilities", href: "/facilities" }],
-    },
+    { name: "Program", subLinks: [{ name: "Program", href: "/program" }] },
+    { name: "Facility", subLinks: [{ name: "Facilities", href: "/facilities" }] },
     { name: "Contact Us", href: "/contact" },
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white shadow-sm z-50">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-        {/* ✅ Logo from public/images */}
-        <a href="/" className="flex items-center">
-          <img
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-3 w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-white/70 shadow-lg border-b border-white/30 py-2"
+          : "backdrop-blur-lg bg-white/80 py-4"
+      }`}
+    >
+<div className="max-w-7xl mx-auto px-4 md:px-0 flex justify-between items-center gap-4 md:gap-16">
+
+
+
+        {/* ✅ Animated Logo */}
+        <a href="/" className="relative group select-none flex items-center">
+          <motion.img
             src="/images/cvru-logo.png"
             alt="CVRU Logo"
-            className="h-16 w-auto"
+            className="h-24 w-auto object-contain drop-shadow-xl"
+            animate={scrolled ? { scale: 0.82 } : { scale: 1 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{
+              rotate: [0, -4, 4, -2, 2, 0],
+              scale: 1.08,
+              transition: { duration: 0.9 },
+            }}
+          />
+
+          {/* Glow */}
+          <motion.div
+            className="absolute inset-0 scale-[1.7] blur-2xl bg-[#00d2ef]/40 opacity-0 group-hover:opacity-80 -z-10 rounded-full"
+            animate={{ scale: [1.1, 1.4, 1.1] }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
         </a>
 
-        {/* ✅ Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 font-medium text-gray-700">
+        {/* ✅ Desktop Nav */}
+        <nav className="hidden md:flex items-center space-x-16 text-[1.1rem] font-medium text-gray-800">
           {links.map((link) =>
             link.subLinks ? (
-              <div key={link.name} className="relative group">
-                <button
-                  onClick={() => toggleDropdown(link.name)}
-                  className="flex items-center gap-1 hover:text-[#16b6cf]"
-                >
-                  {link.name} <ChevronDown size={16} />
+              <div
+                key={link.name}
+                className="relative"
+                onMouseEnter={() => setOpenDropdown(link.name)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <button className="modern-link flex items-center gap-1">
+                  {link.name}
+                  <ChevronDown size={16} />
                 </button>
+
                 <AnimatePresence>
                   {openDropdown === link.name && (
                     <motion.ul
-                      initial={{ opacity: 0, y: -10 }}
+                      initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-100 z-50"
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.22 }}
+                      className="absolute left-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100/60 backdrop-blur-xl p-2"
                     >
                       {link.subLinks.map((sub) => (
                         <li key={sub.name}>
-                          <a
-                            href={sub.href}
-                            className="block px-4 py-2 text-sm hover:bg-[#16b6cf]/10 hover:text-[#16b6cf]"
-                          >
+                          <a className="block px-6 py-3 rounded-xl text-gray-700 hover:bg-[#00d2ef]/10 hover:text-[#00d2ef] transition-all">
                             {sub.name}
                           </a>
                         </li>
@@ -89,101 +114,68 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
             ) : (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-[#16b6cf] transition-colors"
-              >
+              <a key={link.name} href={link.href!} className="modern-link">
                 {link.name}
               </a>
             )
           )}
 
-          <a
-            href="/apply"
-            className="ml-4 bg-[#16b6cf] text-white px-5 py-2 rounded-lg hover:bg-[#12a0b7] transition"
-          >
-            Apply
+          {/* ✅ Liquid CTA */}
+          <a href="/apply">
+            <Button>Apply</Button>
           </a>
         </nav>
 
-        {/* ✅ Mobile Toggle Button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-gray-700"
-        >
-          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* ✅ Mobile menu icon */}
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden">
+          <motion.div
+            key={mobileOpen ? "close" : "menu"}
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            transition={{ duration: 0.25 }}
+          >
+            {mobileOpen ? <X size={34} /> : <Menu size={34} />}
+          </motion.div>
         </button>
       </div>
 
-      {/* ✅ Mobile Dropdown Menu */}
+      {/* ✅ Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -10 }}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-white border-t border-gray-100 shadow-lg px-6 py-4 space-y-4"
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-white/90 backdrop-blur-xl px-8 py-6 space-y-6 shadow-xl"
           >
             {links.map((link) => (
               <div key={link.name}>
                 {link.subLinks ? (
-                  <>
-                    <button
-                      onClick={() => toggleDropdown(link.name)}
-                      className="flex justify-between w-full text-left font-medium text-gray-700"
-                    >
+                  <details>
+                    <summary className="font-semibold text-gray-800 py-2 cursor-pointer flex justify-between">
                       {link.name}
-                      <ChevronDown
-                        size={18}
-                        className={`transition-transform ${
-                          openDropdown === link.name ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                    <AnimatePresence>
-                      {openDropdown === link.name && (
-                        <motion.ul
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
-                          className="mt-2 pl-4 space-y-2"
-                        >
-                          {link.subLinks.map((sub) => (
-                            <li key={sub.name}>
-                              <a
-                                href={sub.href}
-                                className="block text-sm text-gray-600 hover:text-[#16b6cf]"
-                              >
-                                {sub.name}
-                              </a>
-                            </li>
-                          ))}
-                        </motion.ul>
-                      )}
-                    </AnimatePresence>
-                  </>
+                    </summary>
+                    <ul className="pl-4 space-y-2">
+                      {link.subLinks.map((sub) => (
+                        <li key={sub.name}>
+                          <a className="block text-gray-600 py-2">{sub.name}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 ) : (
-                  <a
-                    href={link.href}
-                    className="block font-medium text-gray-700 hover:text-[#16b6cf]"
-                  >
+                  <a href={link.href!} className="block font-semibold text-gray-800">
                     {link.name}
                   </a>
                 )}
               </div>
             ))}
 
-            <a
-              href="/apply"
-              className="block bg-[#16b6cf] text-white text-center py-2 rounded-lg mt-4"
-            >
-              Apply
-            </a>
-          </motion.nav>
+            <Button>Apply</Button>
+          </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
