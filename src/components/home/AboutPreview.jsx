@@ -14,11 +14,11 @@ export default function AboutPreview() {
           <div>
             {/* Icon + Label */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-cyan-500 text-xl">✦</span>
+              <span className="text-[#ee9e26] text-xl">✦</span>
               <span className="text-lg font-medium tracking-wide text-gray-800">CVRU I–TBI</span>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-8">
+            <h2 className="text-5xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
               About Us
             </h2>
 
@@ -57,17 +57,19 @@ export default function AboutPreview() {
             </div>
 
             <Image
-              src="/images/02.jpg"
+              src="/images/nitin-sir3.webp"
               alt="CVRU Activities"
               width={900}
               height={600}
               className="w-full h-[500px] object-cover rounded-3xl"
             />
 
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
             {/* Bottom Left Name */}
             <div className="absolute bottom-8 left-8 text-white text-lg drop-shadow-lg">
               <p className="font-medium">Nitin Vats</p>
-              <p className="text-sm opacity-90">CVRU Chancellor, Bilaspur</p>
+              {/* <p className="text-sm opacity-90">CVRU Chancellor, Bilaspur</p> */}
             </div>
 
             {/* Play Button */}

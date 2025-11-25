@@ -1,11 +1,8 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import SectionTitle from "@/components/ui/SectionTitle";
-import ServiceCard from "./ServiceCard";
+import ServiceCard from "../ui/ServiceCard";
 import Button from "@/components/ui/Button";
-
-// react-icons
 import { MdWorkspaces, MdGavel } from "react-icons/md";
 import { FaChalkboardTeacher, FaNetworkWired, FaUserFriends } from "react-icons/fa";
 import { RiUserStarFill } from "react-icons/ri";
@@ -31,7 +28,7 @@ export default function ServicesSection() {
   let inside = false;
   let raf: number;
 
-  // ✅ Smooth auto scrolling + Infinite loop
+  //Smooth auto scrolling + Infinite loop
   const animate = () => {
     if (!scrollRef.current || showAll) return;
 
@@ -53,10 +50,10 @@ export default function ServicesSection() {
     speed += e.movementX * 0.12;
   };
 
-  // ✅ Disable page scroll & scroll only slider
+  //Disable page scroll & scroll only slider
   const handleWheel = (e: WheelEvent) => {
     if (!inside || showAll) return;
-    e.preventDefault(); // 🔥 block page scroll again
+    e.preventDefault();
     speed += e.deltaY * 0.12;
   };
 
@@ -64,7 +61,7 @@ export default function ServicesSection() {
     if (showAll) return;
     inside = true;
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("wheel", handleWheel, { passive: false }); // 🔥 no passive
+    window.addEventListener("wheel", handleWheel, { passive: false });
   };
 
   const leave = () => {
@@ -88,10 +85,11 @@ export default function ServicesSection() {
   return (
     <section className="py-20 bg-white">
       <div className="container-global px-6">
-        <SectionTitle
-          title="Our Services"
-          subtitle="We provide complete incubation support to help startups build, launch, and scale"
-        />
+
+        <div className="text-center mb-12">
+          <h2 className="text-5xl font-bold text-gray-900">Our Services</h2>
+          <p className="text-gray-500 mt-2">We provide complete incubation support to help startups build, launch, and scale</p>
+        </div>
 
         {/* ─── Slider View ─── */}
         {!showAll && (
@@ -124,7 +122,7 @@ export default function ServicesSection() {
           </div>
         )}
 
-        {/* ─── Grid View ─── */}
+        {/* Grid View */}
         {showAll && (
           <>
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

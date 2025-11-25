@@ -3,6 +3,7 @@ import DownloadSection from "@/components/home/DownloadSection";
 import AboutPreview from "@/components/home/AboutPreview";
 import ServicesSection from "@/components/home/ServicesSection";
 import VisionSection from "@/components/home/VisionSection";
+import EventSection from "@/components/home/EventSection";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <DownloadSection />
       <AboutPreview />
       <ServicesSection />
+      <EventSection />
       <VisionSection />
     </>
   );

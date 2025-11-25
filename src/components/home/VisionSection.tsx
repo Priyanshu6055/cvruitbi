@@ -48,7 +48,7 @@ export default function VisionSection() {
               src="/images/02.jpg"
               alt="Vision"
               width={550}
-              height={330}       // ✅ Fixed 330px height
+              height={330}
               className="rounded-3xl object-cover w-[550px] h-[330px]"
             />
           </motion.div>

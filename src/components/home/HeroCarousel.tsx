@@ -1,85 +1,192 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Button from "@/components/ui/Button"; // ✅ import your water-wave button
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import { Typewriter } from "react-simple-typewriter";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-const images = ["/images/01.jpg", "/images/02.jpg", "/images/04.jpg"];
+// --- ANIMATION CONFIGURATION ---
 
-export default function HeroCarousel() {
-  const [index, setIndex] = useState(0);
+// Container variants for staggering text elements
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // Delay between child animations
+      delayChildren: 0.1,    // Initial delay for all children
+    },
+  },
+};
 
-  useEffect(() => {
-    const interval = setInterval(
-      () => setIndex((prev) => (prev + 1) % images.length),
-      4000
-    );
-    return () => clearInterval(interval);
-  }, []);
+// Child variants (Title, Subtitle/Button)
+const textItemVariants: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+      ease: "easeOut",
+      duration: 0.8,
+    },
+  },
+};
+
+// Image zoom effect on slide enter
+const imageVariants: Variants = {
+  hidden: { scale: 1.05, opacity: 0.8 },
+  visible: {
+    scale: 1.0,
+    opacity: 1,
+    transition: {
+      duration: 3.0, // Slow, dramatic zoom
+      ease: "easeInOut",
+    },
+  },
+};
+
+// --- COMPONENT ---
+
+export default function HeroSlider() {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+  const slides = [
+    {
+      image: "/images/05.webp",
+      titleWords: [
+        "Innovate.",
+        "Create.",
+        "Grow with CVRU i-TBI Foundation.",
+      ],
+      subtitle: "Join the Startup Ecosystem | Know More",
+    },
+    {
+      image: "/images/02.webp",
+      titleWords: ["Empowering", "Visionary", "Entrepreneurs."],
+      subtitle: "Kickstart Your Journey Today",
+    },
+    {
+      image: "/images/04.webp",
+      titleWords: ["Transform", "Ideas", "Into Reality."],
+      subtitle: "Connect | Collaborate | Build",
+    },
+  ];
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveSlideIndex(swiper.realIndex);
+  };
+
 
   return (
-    <section className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden  shadow-2xl bg-gradient-to-br from-cyan-900 via-gray-900 to-black">
+    <div className="w-full h-[420px] sm:h-[480px] md:h-[700px] overflow-hidden shadow-2xl relative group">
+      <Swiper
+        modules={[Navigation, Autoplay, Pagination]}
+        navigation={{
+          nextEl: ".next-btn",
+          prevEl: ".prev-btn",
+        }}
+        autoplay={{ delay: 4500, disableOnInteraction: false }} // Slightly longer delay
+        pagination={{ clickable: true }}
+        loop={true}
+        speed={1200}
+        onSlideChangeTransitionStart={handleSlideChange}
+        className="h-full w-full hero-swiper"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative w-full h-full">
+              {/* Slide Image with Zoom Effect (Parallax) */}
+              <motion.img
+                key={`image-${index}-${activeSlideIndex}`} // Key change re-triggers animation
+                src={slide.image}
+                variants={imageVariants}
+                initial="hidden"
+                animate="visible"
+                className="w-full h-full object-cover absolute inset-0"
+                alt={`Slide ${index}`}
+              />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={images[index]}
-            alt={`Hero ${index + 1}`}
-            fill
-            className="object-cover object-center brightness-[0.65] contrast-110 saturate-[1.2]"
-            priority
-          />
-        </motion.div>
-      </AnimatePresence>
+              {/* Dark Gradient for readability - Stronger and deeper */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70"></div>
+              {/* Text Container: Uses staggered motion variants */}
+              <motion.div
+                key={`text-${index}-${activeSlideIndex}`} // Key change re-triggers animation
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="absolute left-6 bottom-16 sm:left-10 sm:bottom-20 md:bottom-32 max-w-[90%] sm:max-w-[70%] z-20"
+              >
+                {/* 1. Main Title with Typewriter */}
+                <motion.h1
+                  variants={textItemVariants}
+                  className="
+                    text-4xl sm:text-5xl md:text-7xl 
+                    font-black 
+                    text-white leading-tight drop-shadow-2xl mb-4
+                  "
+                >
+                  {/* We only use Typewriter on the active slide to prevent multiple instances running */}
+                  {index === activeSlideIndex && (
+                    <Typewriter
+                      words={slide.titleWords}
+                      loop={1}
+                      cursor
+                      cursorStyle="_"
+                      typeSpeed={70}
+                      deleteSpeed={40}
+                      delaySpeed={1200}
+                    />
+                  )}
+                  {/* Display static text on inactive slides to avoid pop-in */}
+                  {index !== activeSlideIndex && slide.titleWords.join(" ")}
+                </motion.h1>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl px-8 py-6 shadow-xl"
-        >
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-md tracking-tight">
-            Empowering <span className="text-cyan-400">Innovation</span>
-          </h1>
-
-          <p className="text-sm md:text-base text-gray-200 mt-3 max-w-md mx-auto leading-relaxed">
-            CVRUITBI drives innovation, nurtures startups, and builds a future powered by ideas.
-          </p>
-
-          {/* ✅ Replace default button with your water-wave Button */}
-          <div className="mt-6">
-            <a href="#about">
-              <Button>Explore Now</Button>
-            </a>
-          </div>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
-        {images.map((_, i) => (
-          <motion.button
-            key={i}
-            onClick={() => setIndex(i)}
-            whileHover={{ scale: 1.2 }}
-            className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
-              index === i
-                ? "bg-cyan-400 shadow-[0_0_10px_3px_rgba(34,211,238,0.7)]"
-                : "bg-white/50 hover:bg-white/80"
-            }`}
-          />
+                {/* 2. Subtitle/Button Container */}
+                <motion.div
+                  variants={textItemVariants}
+                  className="mt-6"
+                >
+                  <button
+                    className="
+                      bg-[#00d2ef] text-white 
+                      px-8 py-4 sm:px-10 sm:py-4 
+                      rounded-xl font-bold text-lg 
+                      shadow-2xl transition duration-300
+                      hover:bg-[#2aa8b6] hover:scale-[1.03]
+                      tracking-wide
+                    "
+                    aria-label={`Go to ${slide.subtitle}`}
+                  >
+                    {slide.subtitle}
+                  </button>
+                </motion.div>
+              </motion.div>
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
-    </section>
+
+        {/* Navigation Arrows: Styled for better UX/UI */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-30 flex items-center justify-between px-4 sm:px-6">
+          <div className="prev-btn pointer-events-auto bg-white/20 text-white p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 hover:bg-white/40 cursor-pointer backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-[#35c6d6]/50">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </div>
+
+          <div className="next-btn pointer-events-auto bg-white/20 text-white p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 hover:bg-white/40 cursor-pointer backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-[#35c6d6]/50">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </div>
+        </div>
+
+      </Swiper>
+    </div>
   );
 }

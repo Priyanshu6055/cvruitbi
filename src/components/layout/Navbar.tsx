@@ -1,9 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
-import Button from "@/components/ui/Button"; 
+import Button from "@/components/ui/Button";
+import Link from "next/link";
 
 interface NavLink {
   name: string;
@@ -15,9 +21,17 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const { scrollYProgress } = useScroll();
+  const shadowOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.25]);
+  const boxShadow = useTransform(
+    shadowOpacity,
+    (v) => `0 8px 25px rgba(0, 210, 239, ${v})`
+  );
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -28,126 +42,142 @@ export default function Navbar() {
       name: "About",
       subLinks: [
         { name: "Who We Are", href: "/about" },
-        { name: "Services We Offer", href: "/services" },
-        { name: "Our Team", href: "/team" },
-        { name: "Mentor", href: "/mentor" },
-        { name: "Startup Associate", href: "/startup-associate" },
-        { name: "Partners", href: "/partners" },
+        { name: "Services We Offer", href: "/about/services" },
+        { name: "Our Team", href: "/about/team" },
+        { name: "Mentor", href: "/about/mentor" },
+        { name: "Startup Associate", href: "/about/startup-associate" },
+        { name: "Partners", href: "/about/partners" },
       ],
     },
     { name: "Program", subLinks: [{ name: "Program", href: "/program" }] },
-    { name: "Facility", subLinks: [{ name: "Facilities", href: "/facilities" }] },
+    { name: "Facility", subLinks: [{ name: "Facilities", href: "/facility" }] },
     { name: "Contact Us", href: "/contact" },
   ];
 
+  const handleMouseEnter = (name: string) => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+    setOpenDropdown(name);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => setOpenDropdown(null), 180);
+    setHoverTimeout(timeout);
+  };
+
   return (
     <motion.header
-      initial={{ y: -60, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-3 w-full z-50 transition-all duration-500 ${
-        scrolled
-          ? "backdrop-blur-xl bg-white/70 shadow-lg border-b border-white/30 py-2"
-          : "backdrop-blur-lg bg-white/80 py-4"
-      }`}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      style={{ boxShadow }}
+      className={`fixed top-4 left-0 w-full z-50 transition-all duration-500 ${scrolled
+          ? "backdrop-blur-xl bg-white/70 border-b border-[#00d2ef]/40 py-3 md:py-4"
+          : "backdrop-blur-lg bg-white/90 border-b border-[#00d2ef]/30 py-5 md:py-6"
+        }`}
     >
-<div className="max-w-7xl mx-auto px-4 md:px-0 flex justify-between items-center gap-4 md:gap-16">
+      <div className="container-global px-6 flex justify-between items-center">
+        {/* === Logo === */}
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link href="/" className="relative flex items-center select-none">
+            <div className="h-16 md:h-30 flex items-center">
+              <motion.img
+                src="/images/cvru-logo-plane-orange.gif"
+                alt="CVRU Logo"
+                className="max-h-full w-auto object-contain"
+                animate={scrolled ? { scale: 0.95 } : { scale: 1 }}
+                transition={{ duration: 0.4 }}
+              />
+            </div>
+          </Link>
+        </motion.div>
 
-
-
-        {/* ✅ Animated Logo */}
-        <a href="/" className="relative group select-none flex items-center">
-          <motion.img
-            src="/images/cvru-logo.png"
-            alt="CVRU Logo"
-            className="h-24 w-auto object-contain drop-shadow-xl"
-            animate={scrolled ? { scale: 0.82 } : { scale: 1 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{
-              rotate: [0, -4, 4, -2, 2, 0],
-              scale: 1.08,
-              transition: { duration: 0.9 },
-            }}
-          />
-
-          {/* Glow */}
-          <motion.div
-            className="absolute inset-0 scale-[1.7] blur-2xl bg-[#00d2ef]/40 opacity-0 group-hover:opacity-80 -z-10 rounded-full"
-            animate={{ scale: [1.1, 1.4, 1.1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </a>
-
-        {/* ✅ Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-16 text-[1.1rem] font-medium text-gray-800">
+        {/* === Desktop Nav === */}
+        <nav className="hidden md:flex items-center space-x-14 text-[1.1rem] font-medium text-gray-800">
           {links.map((link) =>
             link.subLinks ? (
               <div
                 key={link.name}
                 className="relative"
-                onMouseEnter={() => setOpenDropdown(link.name)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                onMouseEnter={() => handleMouseEnter(link.name)}
+                onMouseLeave={handleMouseLeave}
               >
-                <button className="modern-link flex items-center gap-1">
+                <motion.button
+                  whileHover={{ color: "#00d2ef" }}
+                  className="flex items-center gap-1"
+                >
                   {link.name}
-                  <ChevronDown size={16} />
-                </button>
+                  <motion.div
+                    animate={{ rotate: openDropdown === link.name ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown size={16} />
+                  </motion.div>
+                </motion.button>
 
                 <AnimatePresence>
                   {openDropdown === link.name && (
                     <motion.ul
-                      initial={{ opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22 }}
-                      className="absolute left-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100/60 backdrop-blur-xl p-2"
+                      key={link.name}
+                      initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                      transition={{ duration: 0.35 }}
+                      className="absolute left-0 mt-3 w-64 bg-white rounded-2xl border border-gray-100/50 backdrop-blur-xl p-2"
                     >
                       {link.subLinks.map((sub) => (
-                        <li key={sub.name}>
-                          <a className="block px-6 py-3 rounded-xl text-gray-700 hover:bg-[#00d2ef]/10 hover:text-[#00d2ef] transition-all">
+                        <motion.li key={sub.name} whileHover={{ x: 8 }} className="rounded-xl">
+                          <Link
+                            href={sub.href}
+                            className="block px-5 py-3 text-gray-700 hover:text-[#00d2ef] hover:bg-[#00d2ef]/10 rounded-xl transition-all"
+                          >
                             {sub.name}
-                          </a>
-                        </li>
+                          </Link>
+                        </motion.li>
                       ))}
                     </motion.ul>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
-              <a key={link.name} href={link.href!} className="modern-link">
-                {link.name}
-              </a>
+              <motion.div key={link.name} whileHover={{ color: "#00d2ef" }}>
+                <Link href={link.href!} className="relative">
+                  {link.name}
+                  <motion.span
+                    className="absolute left-0 bottom-[-4px] h-[2px] bg-[#00d2ef] rounded-full"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </Link>
+              </motion.div>
             )
           )}
 
-          {/* ✅ Liquid CTA */}
-          <a href="/apply">
+          {/* === Apply Button === */}
+          <Link href="/apply">
             <Button>Apply</Button>
-          </a>
+          </Link>
         </nav>
 
-        {/* ✅ Mobile menu icon */}
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden">
-          <motion.div
-            key={mobileOpen ? "close" : "menu"}
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            transition={{ duration: 0.25 }}
-          >
-            {mobileOpen ? <X size={34} /> : <Menu size={34} />}
-          </motion.div>
-        </button>
+        {/* === Mobile Menu Icon === */}
+        <motion.button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden text-gray-700"
+          whileTap={{ scale: 0.9 }}
+        >
+          {mobileOpen ? <X size={32} /> : <Menu size={32} />}
+        </motion.button>
       </div>
 
-      {/* ✅ Mobile Menu */}
+      {/* === Mobile Menu === */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -6 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden bg-white/90 backdrop-blur-xl px-8 py-6 space-y-6 shadow-xl"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white/90 backdrop-blur-xl px-8 py-6 space-y-5"
           >
             {links.map((link) => (
               <div key={link.name}>
@@ -159,20 +189,30 @@ export default function Navbar() {
                     <ul className="pl-4 space-y-2">
                       {link.subLinks.map((sub) => (
                         <li key={sub.name}>
-                          <a className="block text-gray-600 py-2">{sub.name}</a>
+                          <Link
+                            href={sub.href}
+                            className="block text-gray-600 py-2 hover:text-[#00d2ef]"
+                          >
+                            {sub.name}
+                          </Link>
                         </li>
                       ))}
                     </ul>
                   </details>
                 ) : (
-                  <a href={link.href!} className="block font-semibold text-gray-800">
+                  <Link
+                    href={link.href!}
+                    className="block font-semibold text-gray-800 hover:text-[#00d2ef]"
+                  >
                     {link.name}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
 
-            <Button>Apply</Button>
+            <Link href="/apply">
+              <Button>Apply</Button>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
