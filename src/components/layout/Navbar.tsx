@@ -45,7 +45,7 @@ export default function Navbar() {
         { name: "Services We Offer", href: "/about/services" },
         { name: "Our Team", href: "/about/team" },
         { name: "Mentor", href: "/about/mentor" },
-        { name: "Startup Associate", href: "/about/startup-associate" },
+        { name: "Startup Associated", href: "/about/startup-associate" },
         { name: "Partners", href: "/about/partners" },
       ],
     },

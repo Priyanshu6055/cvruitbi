@@ -150,7 +150,7 @@ export default function StartupAssociatePage() {
     <>
       <BannerWrapper
         animation={animationData}
-        heading="Startup Associate"
+        heading="Startup Associated"
         subtitle="Meet the passionate innovators driving our mission forward."
       />
 

@@ -137,7 +137,7 @@ export default function EventSection() {
               ref={scrollRef}
               onMouseEnter={enter}
               onMouseLeave={leave}
-              className="flex overflow-x-hidden py-4 cursor-pointer select-none [scrollbar-width:none] [-ms-overflow-style:none]"
+              className="flex gap-4 overflow-x-hidden py-4 cursor-pointer select-none [scrollbar-width:none] [-ms-overflow-style:none]"
             >
               {[...events, ...events].map((event, i) => (
                 <div key={i} className="min-w-[300px] sm:min-w-[300px] md:min-w-[350px]">

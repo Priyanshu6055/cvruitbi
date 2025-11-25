@@ -68,7 +68,7 @@ export default function AboutPreview() {
 
             {/* Bottom Left Name */}
             <div className="absolute bottom-8 left-8 text-white text-lg drop-shadow-lg">
-              <p className="font-medium">Nitin Vats</p>
+              {/* <p className="font-medium">Nitin Vats</p> */}
               {/* <p className="text-sm opacity-90">CVRU Chancellor, Bilaspur</p> */}
             </div>
 
