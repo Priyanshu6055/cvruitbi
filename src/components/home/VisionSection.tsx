@@ -45,7 +45,7 @@ export default function VisionSection() {
             className="rounded-3xl p-1 backdrop-blur-xl bg-white/5 border border-[#00d2ef]/20 shadow-[0_0_35px_rgba(0,210,239,0.2)]"
           >
             <Image
-              src="/images/02.jpg"
+              src="/images/02.webp"
               alt="Vision"
               width={550}
               height={330}

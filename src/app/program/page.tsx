@@ -1,7 +1,7 @@
 "use client";
 
 import BannerWrapper from "@/components/about/AboutBannerWrapper";
-import animationData from "@/../public/JSON/rocket-launch.json";
+import animationData from "@/../public/JSON/programs.json";
 
 export default function ProgramPage() {
   return (

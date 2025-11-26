@@ -12,8 +12,8 @@ export default function HomePage() {
       <DownloadSection />
       <AboutPreview />
       <ServicesSection />
-      <EventSection />
       <VisionSection />
+      <EventSection />
     </>
   );
 }

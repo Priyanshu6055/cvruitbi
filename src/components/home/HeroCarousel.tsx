@@ -87,7 +87,7 @@ export default function HeroSlider() {
 
 
   return (
-    <div className="w-full h-[420px] sm:h-[480px] md:h-[700px] overflow-hidden shadow-2xl relative group">
+    <div className="w-full h-[420px] sm:h-[480px] md:h-[850px] overflow-hidden shadow-2xl relative group">
       <Swiper
         modules={[Navigation, Autoplay, Pagination]}
         navigation={{

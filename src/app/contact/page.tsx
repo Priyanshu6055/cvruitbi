@@ -37,7 +37,7 @@ export default function Contactpage() {
                                 loading="lazy"
                                 allowFullScreen
                                 referrerPolicy="no-referrer-when-downgrade"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.1950616340416!2d82.0789583744663!3d22.68018192820933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a258dc9c38272c9%3A0x3f951bc04057a5fc!2sDr.%20C.V.%20Raman%20University!5e0!3m2!1sen!2sin!4v1732180586736!5m2!1sen!2sin"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236230.55345647174!2d81.81724548339851!3d22.311966810977694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a281b3c55555557%3A0xc73a7f120658f13d!2sDr.%20C.V.%20Raman%20University!5e0!3m2!1sen!2sin!4v1764141102962!5m2!1sen!2sin"
                             />
                         </div>
 

@@ -60,7 +60,7 @@ export default function ThreeDWaveCard({
         shadow-[0_15px_35px_rgba(0,0,0,0.08)]
         hover:shadow-[0_25px_55px_rgba(0,0,0,0.12)]
         flex flex-col cursor-pointer select-none
-        h-[360px] md:h-[320px] p-10
+        md:h-[420px] p-10
         transition-all duration-500
       "
     >
@@ -137,7 +137,7 @@ export default function ThreeDWaveCard({
               </p>
             )}
 
-            <p className="text-[#0b1220] text-[1.05rem] leading-relaxed">
+            <p className="text-[#0b1220] text-[17px] leading-relaxed">
               {text}
             </p>
           </div>
