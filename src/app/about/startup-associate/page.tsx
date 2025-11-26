@@ -163,8 +163,7 @@ export default function StartupAssociatePage() {
                 Startup <span className="text-[#00d2ef]">Associated</span>
               </h2>
               <p className="text-gray-600 mt-3 text-base md:text-lg max-w-lg">
-                Explore startups incubated and supported by our innovation
-                ecosystem.
+                Explore startups incubated and supported by us.
               </p>
             </div>
 

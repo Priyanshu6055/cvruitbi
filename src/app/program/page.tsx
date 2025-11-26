@@ -20,7 +20,7 @@ export default function ProgramPage() {
             {/* Header */}
             <div className="space-y-3">
               <h2 className="text-4xl md:text-5xl font-extrabold text-[#0b1220] leading-tight">
-                About Our <span className="text-[#00d2ef]">Program</span>
+                Aarambh<span className="text-[#00d2ef]"></span>
               </h2>
               <div className="flex items-center gap-3">
                 <div className="h-[3px] w-[80px] bg-[#00d2ef] rounded-full" />

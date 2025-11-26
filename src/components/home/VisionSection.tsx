@@ -22,7 +22,7 @@ export default function VisionSection() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="container-global px-6 grid md:grid-cols-2 gap-28 items-center relative z-10">
+      <div className="container-global grid md:grid-cols-2 gap-28 items-center relative z-10">
 
         {/* Left Image */}
         <motion.div

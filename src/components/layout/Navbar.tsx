@@ -49,7 +49,7 @@ export default function Navbar() {
         { name: "Partners", href: "/about/partners" },
       ],
     },
-    { name: "Program", subLinks: [{ name: "Program", href: "/program" }] },
+    { name: "Program", subLinks: [{ name: "Aarambh", href: "/program" }] },
     { name: "Facility", subLinks: [{ name: "Facilities", href: "/facility" }] },
     { name: "Contact Us", href: "/contact" },
   ];
@@ -71,15 +71,15 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       style={{ boxShadow }}
       className={`fixed top-4 left-0 w-full z-50 transition-all duration-500 ${scrolled
-          ? "backdrop-blur-xl bg-white/70 border-b border-[#00d2ef]/40 py-3 md:py-4"
-          : "backdrop-blur-lg bg-white/90 border-b border-[#00d2ef]/30 py-5 md:py-6"
+          ? "backdrop-blur-xl bg-white/70 border-b border-[#00d2ef]/40 py-3 md:py-1"
+          : "backdrop-blur-lg bg-white/90 border-b border-[#00d2ef]/30 py-5 md:py-2"
         }`}
     >
       <div className="container-global px-6 flex justify-between items-center">
         {/* === Logo === */}
         <motion.div whileHover={{ scale: 1.05 }}>
           <Link href="/" className="relative flex items-center select-none">
-            <div className="h-16 md:h-30 flex items-center">
+            <div className="h-16 md:h-25 flex items-center">
               <motion.img
                 src="/images/cvru-logo-plane-orange.gif"
                 alt="CVRU Logo"
