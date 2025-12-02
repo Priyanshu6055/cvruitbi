@@ -162,7 +162,7 @@ export default function Navbar() {
 
           {/* APPLY BUTTON */}
           <Link href="/apply">
-            <Button size="xs" className="text-[0.7rem] px-3 py-1">
+            <Button className="text-[0.7rem] px-3 py-1">
               Apply
             </Button>
           </Link>
@@ -220,7 +220,7 @@ export default function Navbar() {
             ))}
 
             <Link href="/apply">
-              <Button size="xs" className="text-[0.75rem] px-3 py-1">
+              <Button className="text-[0.75rem] px-3 py-1">
                 Apply
               </Button>
             </Link>
