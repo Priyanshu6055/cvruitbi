@@ -24,7 +24,7 @@ export default function Footer() {
       {/* Cursor Bubble */}
       <motion.div
         style={{ left: sx, top: sy }}
-        className="pointer-events-none absolute w-10 h-10 bg-[#00d2ef]/20 rounded-full mix-blend-multiply z-[1]"
+        className="pointer-events-none absolute w-12 h-12 bg-[#00d2ef]/20 rounded-full mix-blend-multiply z-[1]"
       />
 
       {/* MAIN FOOTER */}

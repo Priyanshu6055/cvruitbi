@@ -48,8 +48,8 @@ function HoverCard({ member }: { member: Member }) {
       ? "h-[180px]"
       : "h-[160px]"
     : isCEO
-    ? "h-[150px]"
-    : "h-[130px]";
+    ? "h-[160px]"
+    : "h-[140px]";
 
   /** ---------- IMAGE SIZE — 50% SMALLER ---------- **/
   const imgSize = isCEO ? "w-[75px] h-[75px]" : "w-[60px] h-[60px]"; // was 140 / 120
@@ -73,7 +73,7 @@ function HoverCard({ member }: { member: Member }) {
           alt={member.name}
           width={200}
           height={200}
-          className="w-full h-full rounded-lg object-cover shadow-md"
+          className="w-full h-full rounded-lg object-cover"
         />
       </div>
 

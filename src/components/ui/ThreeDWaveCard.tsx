@@ -58,16 +58,12 @@ export default function ThreeDWaveCard({
         shadow-[0_8px_18px_rgba(0,0,0,0.05)]
         hover:shadow-[0_12px_28px_rgba(0,0,0,0.10)]
         cursor-pointer select-none
-        
-        /* ✅ FULL RESPONSIVE SIZING */
         w-full
-        max-w-[200px]          /* mobile-sm */
-        sm:max-w-[220px]       /* small tablets */
-        md:max-w-[280px]       /* desktop */
-
+        max-w-[200px]
+        sm:max-w-[220px]
+        md:max-w-[240px]       
         h-auto
-        min-h-[160px]          /* ensures small perfect size */
-        
+        min-h-[160px]                 
         p-3 sm:p-4
         transition-all duration-500
       "
@@ -127,19 +123,20 @@ export default function ThreeDWaveCard({
 
           {/* TEXT — responsive */}
           <div className="space-y-1">
-            <h3 className="text-sm sm:text-base font-bold text-[#0093b1] line-clamp-1">
+            <h3 className="text-sm sm:text-base font-bold text-[#0093b1]">
               {heading}
             </h3>
 
             {subText && (
-              <p className="text-[9px] sm:text-[11px] text-gray-500 leading-tight line-clamp-2">
+              <p className="text-[9px] sm:text-[11px] text-gray-500 leading-tight">
                 {subText}
               </p>
             )}
 
-            <p className="text-[#0b1220] text-[9px] sm:text-[12px] leading-snug line-clamp-3">
+            <p className="text-[#0b1220] text-[9px] sm:text-[12px] leading-snug">
               {text}
             </p>
+
           </div>
         </div>
 

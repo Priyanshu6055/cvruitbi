@@ -89,7 +89,7 @@ export default function HeroSlider() {
               />
 
               {/* Dark gradient for better readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent"></div>
+
 
               {/* BOTTOM TEXT CONTAINER */}
               <motion.div

@@ -51,45 +51,46 @@ export default function ServicesPage() {
         >
           <CardWrapper
             heading="Dedicated Office Spaces"
-            text="Workspaces that boost productivity and collaboration."
-            icon={<MdOutlineWork size={28} color="#ee9e26" />}   // 30% smaller
+            text="Professional, fully equipped workspaces designed to enhance productivity and collaboration among startups. Includes modern amenities and a focused working environment."
+            icon={<MdOutlineWork size={28} color="#ee9e26" />}
           />
 
           <CardWrapper
             heading="Trainings & Workshops"
-            text="Skill-building sessions on business, marketing & tech."
+            text="Skill-building sessions on business planning, finance, marketing, and technology—conducted by industry experts and seasoned entrepreneurs to help startups grow faster."
             icon={<FaChalkboardTeacher size={28} color="#00d2ef" />}
           />
 
           <CardWrapper
             heading="Mentoring"
-            text="Guidance from successful entrepreneurs and experts."
+            text="Continuous guidance from experienced mentors who support founders through ideation, development, scaling, and beyond—ensuring startups move in the right direction."
             icon={<AiOutlineTeam size={28} color="#ee9e26" />}
           />
 
           <CardWrapper
             heading="Access to Network"
-            text="Connect with investors, business leaders & innovators."
+            text="Opportunities to connect with investors, industry leaders, and innovators through networking events, pitch sessions, and collaborative initiatives."
             icon={<FaNetworkWired size={28} color="#00d2ef" />}
           />
 
           <CardWrapper
             heading="HR / Intern Support"
-            text="Helping startups hire interns and young talent."
+            text="Assistance in hiring talent and interns through CVRU’s university ecosystem and partner institutions, helping startups build strong teams early on."
             icon={<RiUserSettingsLine size={28} color="#ee9e26" />}
           />
 
           <CardWrapper
             heading="Events & Competitions"
-            text="Pitch your ideas, gain visibility & attract investors."
+            text="Platforms to pitch ideas, gain visibility, and attract investors through various startup events and competitions hosted by CVRU iTBI."
             icon={<FaUsers size={28} color="#00d2ef" />}
           />
 
           <CardWrapper
             heading="Legal & Accounting Support"
-            text="Support with legal, compliance & financial structuring."
+            text="Support for legal compliance, documentation, and financial structuring through our network of legal and accounting partners."
             icon={<FaBalanceScale size={28} color="#ee9e26" />}
           />
+
         </motion.div>
       </section>
     </>

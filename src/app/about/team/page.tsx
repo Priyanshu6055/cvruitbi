@@ -71,7 +71,7 @@ export default function TeamPage() {
         </div>
 
         {/* Other Members Row */}
-        <div className="flex flex-wrap justify-center gap-16">
+        <div className="flex flex-wrap justify-center gap-10">
           <TeamCards members={others} />
         </div>
       </section>

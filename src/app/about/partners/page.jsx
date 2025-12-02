@@ -63,7 +63,7 @@ function Section({ title, data }) {
         {data.map((item, i) => (
           <div
             key={i}
-            className="relative bg-white border border-[#eaf5f7] rounded-2xl py-8 px-4 
+            className="relative bg-white border border-[#eaf5f7] rounded-2xl py-6 px-2 
                        shadow-sm hover:shadow-lg hover:scale-[1.03] transition-all duration-500 
                        group overflow-hidden"
           >
