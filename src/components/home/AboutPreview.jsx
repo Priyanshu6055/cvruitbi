@@ -67,7 +67,7 @@ export default function AboutPreview() {
               alt="CVRU Activities"
               width={900}
               height={400}
-              className="w-full h-[230px] md:h-[300px] object-cover rounded-xl"
+              className="w-full h-[230px] md:h-[340px] object-cover rounded-xl"
             />
 
             {/* Dark Overlay */}

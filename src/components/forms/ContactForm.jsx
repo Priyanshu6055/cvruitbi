@@ -25,19 +25,10 @@ export default function ContactForm() {
 
     try {
       const res = await sendContactForm(data);
-      console.log("API Response:", res.data);
-
       setSuccessMsg("Your message has been submitted successfully 🎉");
 
-      // Reset form
-      setData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      setData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      console.log("Error:", err);
       setSuccessMsg("❌ Something went wrong. Please try again.");
     }
 
@@ -45,76 +36,81 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md border border-[#eaf5f7] p-8 w-full">
-      <h3 className="text-3xl font-extrabold text-[#0b1220] mb-6">
+    <div className="bg-white rounded-xl shadow-md border border-[#eaf5f7] p-5 w-full max-w-md">
+      <h3 className="text-xl font-bold text-[#0b1220] mb-4">
         Get in <span className="text-[#00d2ef]">Touch</span>
       </h3>
 
       {successMsg && (
-        <p className="mb-4 p-3 rounded-xl text-center font-semibold
+        <p className="mb-3 p-2 rounded-lg text-center text-xs font-semibold
           bg-[#e6fafd] text-[#008ea0] border border-[#c8f0f7]">
           {successMsg}
         </p>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4 text-sm">
 
+        {/* Name */}
         <div>
-          <label className="text-sm text-gray-700 font-medium">Name</label>
+          <label className="text-gray-700 font-medium text-xs">Name</label>
           <input
             type="text"
             name="name"
             placeholder="Your full name"
             value={data.name}
             onChange={handleChange}
-            className="w-full mt-1 px-4 py-3 bg-[#f8fdff] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#00d2ef]"
+            className="w-full mt-1 px-3 py-2 bg-[#f8fdff] border text-xs border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00d2ef]"
             required
           />
         </div>
 
+        {/* Email */}
         <div>
-          <label className="text-sm text-gray-700 font-medium">Email</label>
+          <label className="text-gray-700 font-medium text-xs">Email</label>
           <input
             type="email"
             name="email"
             placeholder="example@mail.com"
             value={data.email}
             onChange={handleChange}
-            className="w-full mt-1 px-4 py-3 bg-[#f8fdff] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#00d2ef]"
+            className="w-full mt-1 px-3 py-2 bg-[#f8fdff] border text-xs border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00d2ef]"
             required
           />
         </div>
 
+        {/* Subject */}
         <div>
-          <label className="text-sm text-gray-700 font-medium">Subject</label>
+          <label className="text-gray-700 font-medium text-xs">Subject</label>
           <input
             type="text"
             name="subject"
-            placeholder="Subject of your message"
+            placeholder="Message subject"
             value={data.subject}
             onChange={handleChange}
-            className="w-full mt-1 px-4 py-3 bg-[#f8fdff] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#00d2ef]"
+            className="w-full mt-1 px-3 py-2 bg-[#f8fdff] border text-xs border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00d2ef]"
             required
           />
         </div>
 
+        {/* Message */}
         <div>
-          <label className="text-sm text-gray-700 font-medium">Message</label>
+          <label className="text-gray-700 font-medium text-xs">Message</label>
           <textarea
             name="message"
-            rows={4}
+            rows={3}
             placeholder="Write your message..."
             value={data.message}
             onChange={handleChange}
-            className="w-full mt-1 px-4 py-3 bg-[#f8fdff] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#00d2ef]"
+            className="w-full mt-1 px-3 py-2 bg-[#f8fdff] border text-xs border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00d2ef]"
             required
           ></textarea>
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-3.5 font-semibold rounded-xl shadow-md transition-all text-white
+          className={`w-full py-2.5 text-sm rounded-lg font-medium text-white shadow-md transition-all
             ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#00d2ef] hover:bg-[#00b5d6]"}`}
         >
           {loading ? "Submitting..." : "Submit Message"}

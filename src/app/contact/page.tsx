@@ -11,27 +11,29 @@ export default function Contactpage() {
         subtitle="We’d love to hear from you. Reach out for support, queries, or collaborations."
       />
 
-      <section className="relative bg-gradient-to-b from-[#f8fdff] to-white py-10 text-[#0b1220]">
-        <div className="container-global px-3 md:px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <section className="relative bg-gradient-to-b from-[#f8fdff] to-white py-14 text-[#0b1220]">
+        <div className="container-global grid grid-cols-1 lg:grid-cols-2 gap-12 px-4 md:px-6">
 
-          {/* FORM (80% smaller) */}
-          <div className="flex justify-center scale-[0.8] origin-top">
-            <ContactForm />
+          {/* FORM — reduced size using padding + font sizes */}
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-md">
+              <ContactForm />
+            </div>
           </div>
 
           {/* MAP + CONTACT INFO */}
-          <div className="space-y-6">
+          <div className="space-y-8">
 
-            {/* MAP (smaller height + border) */}
+            {/* MAP */}
             <div className="rounded-xl overflow-hidden shadow-sm border border-[#eaf5f7]">
               <iframe
                 title="CVRU Map"
                 width="100%"
-                height="200"  /* reduced from 350 → 200 */
+                height="230"
                 style={{
                   border: 0,
                   borderRadius: "12px",
-                  boxShadow: "0 2px 10px rgba(0, 210, 239, 0.12)",
+                  boxShadow: "0 2px 12px rgba(0, 210, 239, 0.12)",
                 }}
                 loading="lazy"
                 allowFullScreen
@@ -40,13 +42,13 @@ export default function Contactpage() {
               />
             </div>
 
-            {/* CONTACT DETAILS (80% small) */}
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-[#eaf5f7]">
-              <h3 className="text-xl font-extrabold mb-3">
+            {/* CONTACT INFO */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-[#eaf5f7]">
+              <h3 className="text-2xl font-bold mb-4">
                 Contact <span className="text-[#00d2ef]">Information</span>
               </h3>
 
-              <div className="space-y-2 text-gray-700 text-sm">
+              <div className="space-y-3 text-gray-700 text-sm leading-relaxed">
                 <p>
                   <span className="font-semibold text-[#0b1220]">Call:</span>{" "}
                   07753253801
@@ -72,8 +74,8 @@ export default function Contactpage() {
           </div>
         </div>
 
-        {/* Background Glow (kept but lighter & smaller) */}
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[70%] h-[200px] bg-[#00d2ef]/10 blur-2xl rounded-full pointer-events-none" />
+        {/* Background Glow */}
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[65%] h-[230px] bg-[#00d2ef]/10 blur-3xl rounded-full pointer-events-none" />
       </section>
     </>
   );
