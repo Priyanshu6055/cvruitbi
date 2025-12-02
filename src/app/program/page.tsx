@@ -87,8 +87,12 @@ export default function ProgramPage() {
   );
 }
 
-/* SMALLER BENEFIT ITEM COMPONENT */
-function BenefitItem({ title, text }) {
+interface BenefitItemProps {
+  title: string;
+  text: string;
+}
+
+function BenefitItem({ title, text }: BenefitItemProps) {
   return (
     <div>
       <p className="font-semibold text-[#0b1220] text-xs">{title}</p>
