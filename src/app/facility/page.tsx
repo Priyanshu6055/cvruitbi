@@ -3,203 +3,183 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaWifi, FaBook, FaCouch, FaRegLightbulb, FaBolt, FaPrint, FaTools } from "react-icons/fa";
+import {
+  FaWifi,
+  FaBook,
+  FaCouch,
+  FaRegLightbulb,
+  FaBolt,
+  FaPrint,
+  FaTools,
+} from "react-icons/fa";
 import BannerWrapper from "@/components/about/AboutBannerWrapper";
-import animationData from "@/../public/JSON/rocket-launch.json";
 
 export default function FacilityPage() {
-  const coworkingImages = [
-    "/images/06.webp",
-    "/images/04.webp",
-  ];
-
+  const coworkingImages = ["/images/06.webp", "/images/04.webp"];
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Auto-slide effect
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % coworkingImages.length);
-    }, 3500);
+    const interval = setInterval(
+      () => setCurrentImage((p) => (p + 1) % coworkingImages.length),
+      3500
+    );
     return () => clearInterval(interval);
   }, [coworkingImages.length]);
+
   return (
     <>
       <BannerWrapper
-        animation={animationData}
         heading="Facilities"
         subtitle="Meet the passionate innovators driving our mission forward."
       />
-      <section className="bg-white text-[#0b1220] py-20 md:py-28 overflow-hidden">
-        <div className="container-global px-6 lg:px-20 space-y-28">
-          {/* 🏢 Co-Working Space Section */}
+
+      <section className="bg-white text-[#0b1220] py-10 md:py-12 overflow-hidden">
+        <div className="container-global px-3 lg:px-10 space-y-14">
+          {/* ====================== CO-WORKING SPACE ====================== */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="grid md:grid-cols-2 gap-14 items-center"
+            transition={{ duration: 0.6 }}
+            className="grid md:grid-cols-2 gap-8 items-center"
           >
-            {/* Image Carousel with Parallax Fade */}
+            {/* IMAGE (extra reduced 40%) */}
             <motion.div
-              initial={{ opacity: 0, scale: 1.05 }}
+              initial={{ opacity: 0, scale: 1.03 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              className="relative rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)] h-[420px]"
+              transition={{ duration: 0.6 }}
+              className="relative rounded-xl overflow-hidden shadow-md h-[170px] sm:h-[250px]"
             >
-              {/* Cinematic crossfade + slight zoom animation */}
               <motion.div
                 key={currentImage}
-                initial={{ opacity: 0, scale: 1.08 }}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.2 }}
                 className="absolute inset-0"
               >
                 <Image
                   src={coworkingImages[currentImage]}
                   alt="Co-Working Space"
                   fill
-                  className="object-cover w-full h-full rounded-3xl transition-transform duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105"
+                  className="object-cover rounded-xl transition-transform duration-[1500ms] hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
               </motion.div>
 
-              {/* Dots Indicator (with soft glow) */}
-              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+              {/* Dots smaller */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                 {coworkingImages.map((_, i) => (
                   <motion.div
                     key={i}
                     animate={{
-                      scale: currentImage === i ? 1.3 : 1,
-                      opacity: currentImage === i ? 1 : 0.4,
+                      scale: currentImage === i ? 1.1 : 1,
+                      opacity: currentImage === i ? 1 : 0.3,
                     }}
-                    transition={{ duration: 0.5 }}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-500 ${currentImage === i
-                        ? "bg-[#00d2ef] shadow-[0_0_10px_#00d2ef80]"
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      currentImage === i
+                        ? "bg-[#00d2ef]"
                         : "bg-white/40"
-                      }`}
-                  ></motion.div>
+                    }`}
+                  />
                 ))}
               </div>
             </motion.div>
 
-            {/* Content with Float-Up Effect */}
+            {/* TEXT (40% smaller) */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl font-extrabold mb-3 text-[#0b1220]">
+              <h2 className="text-lg md:text-xl font-extrabold mb-1">
                 Co-Working <span className="text-[#00d2ef]">Space</span>
               </h2>
-              <div className="h-[3px] w-16 bg-[#00d2ef] rounded-full mb-6"></div>
+              <div className="h-[2px] w-10 bg-[#00d2ef] rounded-full mb-3"></div>
 
-              <p className="text-gray-600 leading-relaxed mb-5">
-                Step into our workspace and experience a fresh brewing coffee aroma,
-                coupled with an energetic atmosphere. Our co-working space fosters
-                collaboration, creativity, and flexibility—designed to suit the dynamic
-                needs of startups. At CVRU-I-TBI, we provide well-furnished workspaces
-                divided into hot desks, dedicated desks, and cabins.
+              <p className="text-gray-600 text-[9px] md:text-[11px] leading-relaxed">
+                A modern workspace designed for collaboration, creativity, and
+                flexibility. Includes hot desks, dedicated desks, and private cabins.
               </p>
 
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 text-gray-700">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-3 text-gray-700">
                 {[
-                  { icon: <FaWifi />, text: "Free high-speed WiFi" },
-                  { icon: <FaBook />, text: "Access to a well-equipped library" },
-                  { icon: <FaCouch />, text: "Hangout Area & Relax Zones" },
-                  { icon: <FaRegLightbulb />, text: "Conference, Meeting & Discussion Rooms" },
-                  { icon: <FaBolt />, text: "Electricity with UPS backup" },
-                  { icon: <FaPrint />, text: "Printers, Scanners & Stationery" },
+                  { icon: <FaWifi />, text: "High-speed WiFi" },
+                  { icon: <FaBook />, text: "Library Access" },
+                  { icon: <FaCouch />, text: "Relax Zones" },
+                  { icon: <FaRegLightbulb />, text: "Meeting Rooms" },
+                  { icon: <FaBolt />, text: "UPS Backup" },
+                  { icon: <FaPrint />, text: "Printers & Scanners" },
                 ].map((item, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 + i * 0.05 }}
-                    className="flex items-center gap-3"
-                  >
-                    <span className="text-[#00d2ef] text-lg">{item.icon}</span>
-                    <span>{item.text}</span>
-                  </motion.li>
+                  <li key={i} className="flex items-center gap-1.5 text-[9px] md:text-[11px]">
+                    <span className="text-[#00d2ef] text-sm md:text-base">{item.icon}</span>
+                    {item.text}
+                  </li>
                 ))}
               </ul>
             </motion.div>
           </motion.div>
 
-          {/* 🧪 I4 Lab Section */}
+          {/* ====================== I4 LAB ====================== */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="grid md:grid-cols-2 gap-14 items-center"
+            transition={{ duration: 0.6 }}
+            className="grid md:grid-cols-2 gap-8 items-center"
           >
-            {/* Content */}
+            {/* TEXT small */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl font-extrabold mb-3 text-[#0b1220]">
+              <h2 className="text-lg md:text-xl font-extrabold mb-1">
                 I4 Lab —{" "}
-                <span className="text-[#00d2ef]">
-                  Innovation Integration Incubation & Implementation
-                </span>
+                <span className="text-[#00d2ef]">Innovation & Prototyping</span>
               </h2>
-              <div className="h-[3px] w-16 bg-[#00d2ef] rounded-full mb-6"></div>
+              <div className="h-[2px] w-10 bg-[#00d2ef] rounded-full mb-3"></div>
 
-              <div className="space-y-6 text-gray-700">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <h3 className="text-xl font-semibold text-[#0093b1]">
+              <div className="space-y-3 text-gray-700">
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-[#0093b1]">
                     Rapid Prototyping
                   </h3>
-                  <p className="mt-2 leading-relaxed">
-                    Our Rapid Prototyping Lab is equipped with the latest technology to help
-                    startups quickly develop high-quality product models at minimal cost.
-                    This ensures a fast design-to-production cycle and efficient resource
-                    management.
+                  <p className="text-[9px] md:text-[11px] leading-relaxed">
+                    Build quick product models using advanced prototyping tools.
                   </p>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.1 }}
-                >
-                  <h3 className="text-xl font-semibold text-[#0093b1]">Fabrication</h3>
-                  <p className="mt-2 leading-relaxed">
-                    The Fab Lab at CVRU-I-TBI offers state-of-the-art digital fabrication
-                    tools, enabling startups to build, test, and refine their ideas with
-                    ease. It’s fully customizable to fit specific startup requirements.
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-[#0093b1]">
+                    Fabrication Lab
+                  </h3>
+                  <p className="text-[9px] md:text-[11px] leading-relaxed">
+                    Fully equipped digital fabrication space for testing ideas.
                   </p>
-                </motion.div>
+                </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-3 text-[#00d2ef]">
-                <FaTools className="text-xl" />
-                <p className="text-sm font-medium text-gray-600">
-                  Empowering startups with hands-on innovation
+              <div className="mt-3 flex items-center gap-1.5 text-[#00d2ef]">
+                <FaTools className="text-base md:text-lg" />
+                <p className="text-[8px] md:text-[10px] text-gray-600">
+                  Hands-on innovation for startups
                 </p>
               </div>
             </motion.div>
 
-            {/* Image with slow zoom & fade */}
+            {/* IMAGE small */}
             <motion.div
-              initial={{ opacity: 0, scale: 1.05 }}
+              initial={{ opacity: 0, scale: 1.03 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="relative rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
+              transition={{ duration: 0.8 }}
+              className="relative rounded-xl overflow-hidden shadow-md"
             >
               <Image
                 src="/images/3d-printing.webp"
-                alt="I4 Lab Facility"
-                width={700}
-                height={500}
-                className="object-cover w-full h-[420px] transition-transform duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105"
+                alt="I4 Lab"
+                width={500}
+                height={280}
+                className="object-cover w-full h-[170px] sm:h-[250px] rounded-xl transition-transform duration-[1500ms] hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#00000091]/25 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </motion.div>
           </motion.div>
         </div>

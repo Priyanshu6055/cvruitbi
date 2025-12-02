@@ -1,7 +1,6 @@
 "use client";
 
 import BannerWrapper from "@/components/about/AboutBannerWrapper";
-import animationData from "@/../public/JSON/rocket-launch.json";
 import TeamCards from "@/components/ui/TeamCard";
 import { Member } from "@/components/ui/TeamCard";
 
@@ -58,13 +57,12 @@ export default function TeamPage() {
   return (
     <>
       <BannerWrapper
-        animation={animationData}
         heading="Our Team"
         subtitle="Meet the passionate innovators driving our mission forward."
       />
 
       <section className="container-global py-20 px-6 text-center">
-        <h1 className="text-[4rem] font-bold mb-14 text-black">Our Team</h1>
+        <h1 className="text-[2rem] font-bold mb-14 text-black">Our Team</h1>
         <hr className="opacity-[10%]" />
 
         {/* CEO Row */}

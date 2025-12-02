@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 .container-global {
-  @apply max-w-screen-2xl mx-auto px-6 md:px-12;
+  @apply w-full mx-auto px-4   /* default for mobile/tablet – full width */
+         md:px-8              /* medium screens – little padding */
+         lg:max-w-screen-xl lg:px-24   /* desktop – bigger spacing */
+         xl:max-w-screen-2xl xl:px-48; /* large desktop – same as original */;
 }
 
 .wave {

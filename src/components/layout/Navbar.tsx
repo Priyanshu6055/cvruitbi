@@ -27,7 +27,7 @@ export default function Navbar() {
   const shadowOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.25]);
   const boxShadow = useTransform(
     shadowOpacity,
-    (v) => `0 8px 25px rgba(0, 210, 239, ${v})`
+    (v) => `0 6px 18px rgba(0, 210, 239, ${v})`
   );
 
   useEffect(() => {
@@ -70,29 +70,31 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       style={{ boxShadow }}
-      className={`fixed top-4 left-0 w-full z-50 transition-all duration-500 ${scrolled
-          ? "backdrop-blur-xl bg-white/70 border-b border-[#00d2ef]/40 py-3 md:py-1"
-          : "backdrop-blur-lg bg-white/90 border-b border-[#00d2ef]/30 py-5 md:py-2"
-        }`}
+      className={`fixed top-3 left-0 w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-white border-b border-[#00d2ef]/40 py-1.5 md:py-1"
+          : "backdrop-blur-lg bg-white border-b border-[#00d2ef]/20 py-3 md:py-2"
+      }`}
     >
-      <div className="container-global px-6 flex justify-between items-center">
-        {/* === Logo === */}
+      <div className="container-global px-4 flex justify-between items-center">
+
+        {/* === LOGO === */}
         <motion.div whileHover={{ scale: 1.05 }}>
           <Link href="/" className="relative flex items-center select-none">
-            <div className="h-16 md:h-25 flex items-center">
+            <div className="h-10 md:h-14 flex items-center">
               <motion.img
                 src="/images/cvru-logo-plane-orange.gif"
                 alt="CVRU Logo"
                 className="max-h-full w-auto object-contain"
-                animate={scrolled ? { scale: 0.95 } : { scale: 1 }}
-                transition={{ duration: 0.4 }}
+                animate={scrolled ? { scale: 0.92 } : { scale: 1 }}
+                transition={{ duration: 0.3 }}
               />
             </div>
           </Link>
         </motion.div>
 
-        {/* === Desktop Nav === */}
-        <nav className="hidden md:flex items-center space-x-14 text-[1.1rem] font-medium text-gray-800">
+        {/* === DESKTOP NAV === */}
+        <nav className="hidden md:flex items-center space-x-8 text-[0.75rem] font-normal text-gray-800">
           {links.map((link) =>
             link.subLinks ? (
               <div
@@ -103,32 +105,37 @@ export default function Navbar() {
               >
                 <motion.button
                   whileHover={{ color: "#00d2ef" }}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 text-[0.75rem]"
                 >
                   {link.name}
                   <motion.div
                     animate={{ rotate: openDropdown === link.name ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <ChevronDown size={16} />
+                    <ChevronDown size={12} />
                   </motion.div>
                 </motion.button>
 
+                {/* === DROPDOWN === */}
                 <AnimatePresence>
                   {openDropdown === link.name && (
                     <motion.ul
                       key={link.name}
-                      initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                      initial={{ opacity: 0, y: -10, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                      transition={{ duration: 0.35 }}
-                      className="absolute left-0 mt-3 w-64 bg-white rounded-2xl border border-gray-100/50 backdrop-blur-xl p-2"
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      transition={{ duration: 0.25 }}
+                      className="absolute left-0 mt-2 w-48 bg-white rounded-xl border border-gray-100 backdrop-blur-lg p-2 shadow-lg"
                     >
                       {link.subLinks.map((sub) => (
-                        <motion.li key={sub.name} whileHover={{ x: 8 }} className="rounded-xl">
+                        <motion.li
+                          key={sub.name}
+                          whileHover={{ x: 6 }}
+                          className="rounded-lg"
+                        >
                           <Link
                             href={sub.href}
-                            className="block px-5 py-3 text-gray-700 hover:text-[#00d2ef] hover:bg-[#00d2ef]/10 rounded-xl transition-all"
+                            className="block px-3 py-2 text-[0.72rem] text-gray-700 hover:text-[#00d2ef] hover:bg-[#00d2ef]/10 rounded-lg transition-all"
                           >
                             {sub.name}
                           </Link>
@@ -140,10 +147,10 @@ export default function Navbar() {
               </div>
             ) : (
               <motion.div key={link.name} whileHover={{ color: "#00d2ef" }}>
-                <Link href={link.href!} className="relative">
+                <Link href={link.href!} className="relative text-[0.75rem]">
                   {link.name}
                   <motion.span
-                    className="absolute left-0 bottom-[-4px] h-[2px] bg-[#00d2ef] rounded-full"
+                    className="absolute left-0 bottom-[-3px] h-[2px] bg-[#00d2ef] rounded-full"
                     initial={{ width: 0 }}
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.3 }}
@@ -153,45 +160,47 @@ export default function Navbar() {
             )
           )}
 
-          {/* === Apply Button === */}
+          {/* APPLY BUTTON */}
           <Link href="/apply">
-            <Button>Apply</Button>
+            <Button size="xs" className="text-[0.7rem] px-3 py-1">
+              Apply
+            </Button>
           </Link>
         </nav>
 
-        {/* === Mobile Menu Icon === */}
+        {/* === MOBILE MENU ICON === */}
         <motion.button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden text-gray-700"
           whileTap={{ scale: 0.9 }}
         >
-          {mobileOpen ? <X size={32} /> : <Menu size={32} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </motion.button>
       </div>
 
-      {/* === Mobile Menu === */}
+      {/* === MOBILE MENU === */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/90 backdrop-blur-xl px-8 py-6 space-y-5"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-white/90 backdrop-blur-xl px-6 py-5 space-y-4"
           >
             {links.map((link) => (
               <div key={link.name}>
                 {link.subLinks ? (
                   <details>
-                    <summary className="font-semibold text-gray-800 py-2 cursor-pointer flex justify-between">
+                    <summary className="font-semibold text-[0.8rem] text-gray-800 py-1 cursor-pointer flex justify-between">
                       {link.name}
                     </summary>
-                    <ul className="pl-4 space-y-2">
+                    <ul className="pl-3 space-y-1">
                       {link.subLinks.map((sub) => (
                         <li key={sub.name}>
                           <Link
                             href={sub.href}
-                            className="block text-gray-600 py-2 hover:text-[#00d2ef]"
+                            className="block text-gray-600 py-1 text-[0.75rem] hover:text-[#00d2ef]"
                           >
                             {sub.name}
                           </Link>
@@ -202,7 +211,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={link.href!}
-                    className="block font-semibold text-gray-800 hover:text-[#00d2ef]"
+                    className="block font-semibold text-gray-800 text-[0.8rem] hover:text-[#00d2ef]"
                   >
                     {link.name}
                   </Link>
@@ -211,7 +220,9 @@ export default function Navbar() {
             ))}
 
             <Link href="/apply">
-              <Button>Apply</Button>
+              <Button size="xs" className="text-[0.75rem] px-3 py-1">
+                Apply
+              </Button>
             </Link>
           </motion.div>
         )}

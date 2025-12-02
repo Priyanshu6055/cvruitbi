@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react";
 import BannerWrapper from "@/components/about/AboutBannerWrapper";
-import animationData from "@/../public/JSON/rocket-launch.json";
 import { AiOutlineClose, AiFillLinkedin, AiOutlineUser } from "react-icons/ai";
 import Button from "@/components/ui/Button";
 
@@ -100,209 +99,176 @@ const mentors = [
         linkedin: ""
     }
 ];
-/* ---------------- Utilities ---------------- */
-const initials = (name: string) =>
-    name
-        .split(" ")
-        .map((s) => s[0])
-        .slice(0, 2)
-        .join("")
-        .toUpperCase();
 
 /* ---------------- Page Component ---------------- */
 export default function MentorPage() {
-    const [search, setSearch] = useState("");
-    const [sector, setSector] = useState("");
-    const [selected, setSelected] = useState<any>(null);
+  const [search, setSearch] = useState("");
+  const [sector, setSector] = useState("");
+  const [selected, setSelected] = useState<any>(null);
 
-    const filtered = useMemo(() => {
-        const q = search.toLowerCase();
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return mentors.filter((m) => {
+      const matchSearch =
+        m.name.toLowerCase().includes(q) ||
+        (m.city || "").toLowerCase().includes(q) ||
+        (m.sector || "").toLowerCase().includes(q) ||
+        (m.expertise || "").toLowerCase().includes(q);
 
-        return mentors.filter((m) => {
-            const matchSearch =
-                m.name.toLowerCase().includes(q) ||
-                (m.city || "").toLowerCase().includes(q) ||
-                (m.sector || "").toLowerCase().includes(q) ||
-                (m.expertise || "").toLowerCase().includes(q);
+      const matchSector = !sector || m.sector === sector;
+      return matchSearch && matchSector;
+    });
+  }, [search, sector]);
 
-            const matchSector = !sector || m.sector === sector;
+  return (
+    <>
+      {/* ❗ Banner also 50% smaller */}
+      <BannerWrapper
+        heading="Mentors"
+        subtitle="Meet the experts guiding founders toward innovation and success."
+      />
 
-            return matchSearch && matchSector;
-        });
-    }, [search, sector]);
+      <section className="relative bg-gradient-to-b from-[#f8fdff] to-white py-12 overflow-hidden">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[50%] h-[160px] bg-[#00d2ef]/10 blur-[80px] rounded-full pointer-events-none" />
 
-    return (
-        <>
-            <BannerWrapper
-                animation={animationData}
-                heading="Mentors"
-                subtitle="Meet the experts guiding founders toward innovation and success."
-            />
+        <div className="container-global px-3 md:px-6 lg:px-10 relative z-10">
+          {/* ---------------- Heading + Filters (50% smaller) ---------------- */}
+          <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-10">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#0b1220]">
+                Mentor <span className="text-[#00cce3]">Directory</span>
+              </h2>
+              <p className="text-gray-600 mt-2 text-xs md:text-sm max-w-md">
+                Explore mentors across diverse expertise and sectors.
+              </p>
+            </div>
 
-            {/* MAIN SECTION */}
-            <section className="relative bg-gradient-to-b from-[#f8fdff] to-white py-24 overflow-hidden">
+            <div className="flex items-center gap-2 flex-wrap">
+              <input
+                placeholder="Search mentors..."
+                className="bg-white/60 border border-gray-200 rounded-full px-3 py-1.5 
+                           w-[180px] text-xs shadow-sm focus:ring-2 focus:ring-[#00cce3]/40 outline-none"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
 
-                {/* 🔵 BLUISH BACKGROUND GLOW (same as startups page) */}
-                <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[80%] h-[300px] bg-[#00d2ef]/10 blur-[120px] rounded-full pointer-events-none" />
+              <select
+                className="bg-white/60 border border-gray-200 rounded-full px-3 py-1.5 
+                           text-xs shadow-sm focus:ring-2 focus:ring-[#00cce3]/40 outline-none"
+                value={sector}
+                onChange={(e) => setSector(e.target.value)}
+              >
+                <option value="">All Sectors</option>
+                <option value="Agriculture/AgriTech">Agriculture/AgriTech</option>
+              </select>
+            </div>
+          </div>
 
-                {/* Container */}
-                <div className="container-global px-6 md:px-12 lg:px-20 relative z-10">
+          {/* ---------------- GRID (50% smaller) ---------------- */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((m, index) => (
+              <div
+                key={index}
+                className="bg-white/80 border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-lg 
+                           transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  {/* Avatar 50% smaller */}
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#00d2ef] to-[#0092a1] 
+                                 rounded-lg flex items-center justify-center text-white shadow">
+                    <AiOutlineUser size={16} />
+                  </div>
 
-                    {/* Heading & Filters */}
-                    <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-14">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-semibold text-[#0b1220]">
-                                Mentor <span className="text-[#00cce3]">Directory</span>
-                            </h2>
-                            <p className="text-gray-600 mt-3 text-base max-w-lg">
-                                Explore mentors across diverse expertise and sectors.
-                            </p>
-                        </div>
-
-                        <div className="flex items-center gap-3 flex-wrap">
-                            <input
-                                placeholder="Search mentors..."
-                                className="bg-white/60 backdrop-blur-sm border border-gray-200 rounded-full px-5 py-2.5 w-[260px] text-gray-700 shadow-sm focus:ring-2 focus:ring-[#00cce3]/40 outline-none transition"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
-
-                            <select
-                                className="bg-white/60 backdrop-blur-sm  border border-gray-200 rounded-full px-5 py-2.5 text-gray-700 shadow-sm focus:ring-2 focus:ring-[#00cce3]/40 outline-none transition"
-                                value={sector}
-                                onChange={(e) => setSector(e.target.value)}
-                            >
-                                <option value="">All Sectors</option>
-                                <option value="Agriculture/AgriTech">Agriculture/AgriTech</option>
-                                <option value="SaaS">SaaS</option>
-                                <option value="Rural E-Commerce">Rural E-Commerce</option>
-                                <option value="IT/ITES">IT/ITES</option>
-                                <option value="D2C">D2C</option>
-                                <option value="EdTech">EdTech</option>
-                                <option value="Angel Investment">Angel Investment</option>
-                                <option value="Agritech">Agritech</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {/* GRID */}
-                    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                        {filtered.map((m, index) => (
-                            <div
-                                key={index}
-                                className="bg-white/80 border border-gray-100 rounded-2xl p-7 shadow-sm hover:shadow-lg transition-all duration-300"
-                            >
-                                <div className="flex items-center gap-4">
-                                    {/* Avatar */}
-                                    <div className="w-16 h-16 bg-gradient-to-br from-[#00d2ef] to-[#0092a1] rounded-xl flex items-center justify-center text-white shadow">
-                                        <AiOutlineUser size={26} />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="font-semibold text-lg text-[#0b1220]">
-                                            {m.name}
-                                        </h3>
-                                        <p className="text-sm text-gray-500">{m.city}</p>
-                                    </div>
-                                </div>
-
-                                {/* Tags */}
-                                <div className="mt-4 flex flex-wrap gap-2">
-                                    {m.sector && (
-                                        <span className="text-xs px-3 py-1 rounded-full bg-[#e6fbff] text-[#00b5d6] border border-[#00cce33a]">
-                                            {m.sector}
-                                        </span>
-                                    )}
-                                    {m.expertise && (
-                                        <span className="text-xs px-3 py-1 rounded-full bg-[#fff4e5] text-[#ee9e26] border border-[#ee9e2633]">
-                                            {m.expertise}
-                                        </span>
-                                    )}
-                                </div>
-
-                                <p className="text-sm text-gray-600 mt-4 line-clamp-3 min-h-[48px]">
-                                    {m.profile || "—"}
-                                </p>
-
-                                <div className="flex gap-3 mt-6">
-                                    <Button
-                                        className="text-sm px-4 py-2 border text-[#00b5d6] hover:text-white"
-                                        onClick={() => setSelected(m)}
-                                    >
-                                        Details
-                                    </Button>
-
-                                    {m.linkedin && (
-                                        <a
-                                            href={m.linkedin}
-                                            target="_blank"
-                                            className="px-4 py-2 border border-[#ee9e26] text-[#ee9e26] rounded-lg text-sm flex items-center gap-1 hover:bg-[#ee9e26] hover:text-white transition"
-                                        >
-                                            <AiFillLinkedin size={18} />
-                                            LinkedIn
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <p className="text-center text-gray-500 text-sm mt-12">
-                        Tip: click “Details” to view complete profile
-                    </p>
-
+                  <div>
+                    <h3 className="font-semibold text-base text-[#0b1220] text-sm">
+                      {m.name}
+                    </h3>
+                    <p className="text-[10px] text-gray-500">{m.city}</p>
+                  </div>
                 </div>
 
-                {/* MODAL */}
-                {selected && (
-                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-6">
-                        <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 border border-gray-200 max-h-[85vh] overflow-y-auto">
-                            <div className="flex justify-between items-center">
-                                <div>
-                                    <h3 className="text-xl font-semibold">{selected.name}</h3>
-                                    <p className="text-gray-500 text-sm">
-                                        {selected.city} • {selected.sector}
-                                    </p>
-                                </div>
+                {/* Tags */}
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {m.sector && (
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#e6fbff] text-[#00b5d6] border border-[#00cce33a]">
+                      {m.sector}
+                    </span>
+                  )}
+                </div>
 
-                                <button
-                                    onClick={() => setSelected(null)}
-                                    className="p-2 border rounded-lg hover:bg-gray-100 transition"
-                                >
-                                    <AiOutlineClose size={18} />
-                                </button>
-                            </div>
+                {/* Profile Text */}
+                <p className="text-[11px] text-gray-600 mt-3 line-clamp-3 min-h-[36px]">
+                  {m.profile || "—"}
+                </p>
 
-                            <p className="mt-4 text-gray-700">{selected.profile}</p>
+                {/* Buttons */}
+                <div className="flex gap-2 mt-4">
+                  <Button className="text-xs px-3 py-1.5" onClick={() => setSelected(m)}>
+                    Details
+                  </Button>
 
-                            {selected.expertise && (
-                                <p className="mt-3 text-sm">
-                                    <strong>Expertise:</strong> {selected.expertise}
-                                </p>
-                            )}
+                  {m.linkedin && (
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      className="px-3 py-1.5 border border-[#ee9e26] text-[#ee9e26] 
+                                 rounded-lg text-xs flex items-center gap-1 hover:bg-[#ee9e26] hover:text-white transition"
+                    >
+                      <AiFillLinkedin size={14} />
+                      LinkedIn
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
 
-                            {selected.media && (
-                                <p className="mt-3 text-sm">
-                                    <strong>Media:</strong>{" "}
-                                    <a href={selected.media} target="_blank" className="text-[#ee9e26]">
-                                        {selected.media}
-                                    </a>
-                                </p>
-                            )}
+          <p className="text-center text-gray-500 text-xs mt-10">
+            Tip: click “Details” to view complete profile
+          </p>
+        </div>
 
-                            {selected.extraLink && (
-                                <p className="mt-3 text-sm">
-                                    <strong>Website:</strong>{" "}
-                                    <a href={selected.extraLink} target="_blank" className="text-[#ee9e26]">
-                                        {selected.extraLink}
-                                    </a>
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                )}
+        {/* ---------------- MODAL (50% smaller) ---------------- */}
+        {selected && (
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-white w-full max-w-sm rounded-xl shadow-xl p-4 border border-gray-200 
+                           max-h-[70vh] overflow-y-auto">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-semibold">{selected.name}</h3>
+                  <p className="text-gray-500 text-xs">
+                    {selected.city} • {selected.sector}
+                  </p>
+                </div>
 
-            </section>
-        </>
-    );
+                <button
+                  onClick={() => setSelected(null)}
+                  className="p-1.5 border rounded-lg hover:bg-gray-100 transition"
+                >
+                  <AiOutlineClose size={14} />
+                </button>
+              </div>
+
+              <p className="mt-3 text-sm text-gray-700">{selected.profile}</p>
+
+              {selected.expertise && (
+                <p className="mt-2 text-xs">
+                  <strong>Expertise:</strong> {selected.expertise}
+                </p>
+              )}
+
+              {selected.media && (
+                <p className="mt-2 text-xs">
+                  <strong>Media:</strong>{" "}
+                  <a href={selected.media} target="_blank" className="text-[#ee9e26]">
+                    {selected.media}
+                  </a>
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+      </section>
+    </>
+  );
 }

@@ -41,69 +41,68 @@ function HoverCard({ member }: { member: Member }) {
   const [hover, setHover] = useState(false);
   const isCEO = member.role === "ceo";
 
-  /** CARD SIZES (SMALLER VERSION) **/
-  const cardWidth = isCEO ? "w-[260px]" : "w-[220px]";
+  /** ---------- CARD SIZE — 50% SMALLER ---------- **/
+  const cardWidth = isCEO ? "w-[180px]" : "w-[150px]"; // was 260 / 220
   const cardHeight = hover
     ? isCEO
-      ? "h-[300px]"
-      : "h-[280px]"
+      ? "h-[180px]"
+      : "h-[160px]"
     : isCEO
-    ? "h-[260px]"
-    : "h-[230px]";
+    ? "h-[150px]"
+    : "h-[130px]";
 
-  /** IMAGE SIZES (SMALLER) **/
-  const imgSize = isCEO ? "w-[140px] h-[140px]" : "w-[120px] h-[120px]";
-  const hoverTop = isCEO ? "-top-16" : "-top-14";
+  /** ---------- IMAGE SIZE — 50% SMALLER ---------- **/
+  const imgSize = isCEO ? "w-[75px] h-[75px]" : "w-[60px] h-[60px]"; // was 140 / 120
+  const hoverTop = isCEO ? "-top-8" : "-top-6"; // was -16 / -14
 
   return (
     <div
-      className={`relative flex justify-center items-start ${cardWidth} bg-white rounded-2xl shadow-xl transition-all duration-500 ${cardHeight}`}
+      className={`relative flex justify-center items-start ${cardWidth}
+        bg-white rounded-xl shadow-lg transition-all duration-500 ${cardHeight}`}
       style={{ ["--clr" as any]: member.color }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* IMAGE — small version */}
+      {/* ---------- IMAGE (50% smaller) ---------- */}
       <div
-        className={`absolute ${imgSize} transition-all duration-500 
-          ${hover ? `${hoverTop} scale-90` : "top-4"}`}
+        className={`absolute ${imgSize} transition-all duration-500
+          ${hover ? `${hoverTop} scale-90` : "top-2"}`}
       >
         <Image
           src={member.photo}
           alt={member.name}
-          width={300}
-          height={300}
-          className="w-full h-full rounded-xl object-cover drop-shadow-lg"
+          width={200}
+          height={200}
+          className="w-full h-full rounded-lg object-cover shadow-md"
         />
       </div>
 
-      {/* CONTENT AREA */}
+      {/* ---------- CONTENT ---------- */}
       <div
-        className={`absolute w-full px-4 text-center transition-all duration-500
-          ${hover ? "top-[110px] h-[230px]" : "top-[170px] h-[20px]"}`}
+        className={`absolute w-full px-2 text-center transition-all duration-500
+          ${hover ? "top-[60px] h-[110px]" : "top-[85px] h-[15px]"}`}
       >
         <h2
-          className="text-lg font-bold"
+          className="text-sm font-bold" /* was text-lg */
           style={{ color: member.color }}
         >
           {member.name}
         </h2>
 
-        {/* subtitle */}
         {hover && (
-          <p className="text-gray-700 mt-1 text-xs">{member.subname}</p>
+          <p className="text-gray-700 mt-1 text-[10px]">{member.subname}</p>
         )}
 
-        {/* social icons */}
         {hover && (
-          <div className="flex justify-center gap-3 mt-4">
+          <div className="flex justify-center gap-2 mt-2">
             {member.socials?.instagram && (
               <a
                 href={member.socials.instagram}
                 target="_blank"
-                className="p-2 rounded-full text-white hover:scale-110 transition"
+                className="p-1.5 rounded-full text-white hover:scale-110 transition"
                 style={{ background: member.color }}
               >
-                <AiFillInstagram size={18} />
+                <AiFillInstagram size={12} /> {/* was 18 */}
               </a>
             )}
 
@@ -111,10 +110,10 @@ function HoverCard({ member }: { member: Member }) {
               <a
                 href={member.socials.twitter}
                 target="_blank"
-                className="p-2 rounded-full text-white hover:scale-110 transition"
+                className="p-1.5 rounded-full text-white hover:scale-110 transition"
                 style={{ background: member.color }}
               >
-                <AiOutlineTwitter size={18} />
+                <AiOutlineTwitter size={12} />
               </a>
             )}
 
@@ -122,10 +121,10 @@ function HoverCard({ member }: { member: Member }) {
               <a
                 href={member.socials.linkedin}
                 target="_blank"
-                className="p-2 rounded-full text-white hover:scale-110 transition"
+                className="p-1.5 rounded-full text-white hover:scale-110 transition"
                 style={{ background: member.color }}
               >
-                <AiFillLinkedin size={18} />
+                <AiFillLinkedin size={12} />
               </a>
             )}
 
@@ -133,10 +132,10 @@ function HoverCard({ member }: { member: Member }) {
               <a
                 href={member.socials.github}
                 target="_blank"
-                className="p-2 rounded-full text-white hover:scale-110 transition"
+                className="p-1.5 rounded-full text-white hover:scale-110 transition"
                 style={{ background: member.color }}
               >
-                <AiFillGithub size={18} />
+                <AiFillGithub size={12} />
               </a>
             )}
           </div>

@@ -9,10 +9,10 @@ export default function HomePage() {
   return (
     <>
       <HeroCarousel />
-      <DownloadSection />
+      {/* <DownloadSection /> */}
       <AboutPreview />
       <ServicesSection />
-      <VisionSection />
+      {/* <VisionSection /> */}
       <EventSection />
     </>
   );
