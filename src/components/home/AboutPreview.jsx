@@ -9,8 +9,6 @@ export default function AboutPreview() {
     <section className="py-10 bg-[#f7f7f7]">
       <div className="container-global">
         <div className="grid lg:grid-cols-2 gap-6 items-start bg-white/60 rounded-xl p-4 md:p-6 shadow-sm backdrop-blur-xl border border-gray-200/60">
-
-          {/* ✅ Left Content (40% Smaller Again) */}
           <div>
             {/* Label */}
             <div className="flex items-center gap-1 mb-1">
@@ -26,19 +24,22 @@ export default function AboutPreview() {
 
             <div className="space-y-2 text-[12px] md:text-[13px] text-gray-600 leading-relaxed">
               <p>
-                CVRU Incubation and Technology Business Incubation (iTBI) Center is a
-                pioneering initiative under Dr. C.V. Raman University to nurture innovation,
-                creativity, and entrepreneurship in the Chhattisgarh region.
+                CVRU Incubation and Technology Business Incubation (iTBI) Center
+                is a pioneering initiative under Dr. C.V. Raman University to
+                nurture innovation, creativity, and entrepreneurship in the
+                Chhattisgarh region.
               </p>
 
               <p>
-                Our mission is to transform visionary ideas into scalable ventures, contributing
-                to economic, technological, and social growth.
+                Our mission is to transform visionary ideas into scalable
+                ventures, contributing to economic, technological, and social
+                growth.
               </p>
 
               <p>
-                We bridge academia, industry, and entrepreneurs — fostering research-based
-                innovation, product development, and startup growth.
+                We bridge academia, industry, and entrepreneurs — fostering
+                research-based innovation, product development, and startup
+                growth.
               </p>
             </div>
           </div>
