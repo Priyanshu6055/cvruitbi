@@ -6,12 +6,10 @@ import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { Typewriter } from "react-simple-typewriter";
 import { motion, Variants } from "framer-motion";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// --- ANIMATION CONFIG ---
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -77,7 +75,6 @@ export default function HeroSlider() {
           <SwiperSlide key={index}>
             <div className="relative w-full h-full">
 
-              {/* Background Image */}
               <motion.img
                 key={`img-${index}-${activeSlideIndex}`}
                 src={slide.image}
@@ -88,22 +85,13 @@ export default function HeroSlider() {
                 alt={`Slide ${index}`}
               />
 
-              {/* Dark gradient for better readability */}
-
-
-              {/* BOTTOM TEXT CONTAINER */}
               <motion.div
                 key={`txt-${index}-${activeSlideIndex}`}
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="
-                  absolute inset-0 flex flex-col justify-end
-                  px-4 sm:px-10 pb-10 sm:pb-16
-                  max-w-[90%] sm:max-w-[70%] z-20
-                "
+                className="absolute inset-0 flex flex-col justify-end px-4 sm:px-10 pb-10 sm:pb-16 max-w-[90%] sm:max-w-[70%] z-20"
               >
-                {/* ⭐ 50% SMALLER TITLE */}
                 <motion.h1
                   variants={textItemVariants}
                   className="
@@ -126,7 +114,6 @@ export default function HeroSlider() {
                   )}
                 </motion.h1>
 
-                {/* ⭐ 50% SMALLER BUTTON */}
                 <motion.div variants={textItemVariants} className="mt-3">
                   <button
                     className="
@@ -145,20 +132,28 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
 
-        {/* Navigation arrows */}
-        <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
-          <div className="prev-btn pointer-events-auto bg-white/20 text-white p-2 sm:p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 hover:bg-white/40 transition">
-            <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </div>
+        {/* ARROW BUTTONS */}
+        <button className="
+          prev-btn 
+          absolute left-3 top-1/2 -translate-y-1/2 z-30 
+          bg-white/20 text-white p-2 sm:p-3 rounded-full shadow-lg 
+          opacity-0 group-hover:opacity-100 hover:bg-white/40 transition
+        ">
+          <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
 
-          <div className="next-btn pointer-events-auto bg-white/20 text-white p-2 sm:p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 hover:bg-white/40 transition">
-            <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
+        <button className="
+          next-btn 
+          absolute right-3 top-1/2 -translate-y-1/2 z-30 
+          bg-white/20 text-white p-2 sm:p-3 rounded-full shadow-lg 
+          opacity-0 group-hover:opacity-100 hover:bg-white/40 transition
+        ">
+          <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
 
       </Swiper>
     </div>
