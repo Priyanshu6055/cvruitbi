@@ -43,17 +43,17 @@ export default function HeroSlider() {
   const slides = [
     {
       image: "/images/05.webp",
-      titleWords: ["Innovate.", "Create.", "Grow with CVRU i-TBI Foundation."],
+      titleWords: ["Innovate", "Create"],
       subtitle: "Join the Startup Ecosystem | Know More",
     },
     {
       image: "/images/02.webp",
-      titleWords: ["Empowering", "Visionary", "Entrepreneurs."],
+      titleWords: ["Empowering", "Visionary"],
       subtitle: "Kickstart Your Journey Today",
     },
     {
       image: "/images/04.webp",
-      titleWords: ["Transform", "Ideas", "Into Reality."],
+      titleWords: ["Transform", "Ideas"],
       subtitle: "Connect | Collaborate | Build",
     },
   ];

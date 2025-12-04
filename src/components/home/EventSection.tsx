@@ -180,7 +180,7 @@ export default function EventSection() {
         {/* Grid View */}
         {showAll && (
           <>
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {events.map((event, i) => (
                 <EventCard
                   key={i}
