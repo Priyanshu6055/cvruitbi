@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface UltraStatProps {
     label: string;
@@ -15,9 +15,10 @@ interface UltraStatProps {
     onCTA?: () => void;
     glow?: boolean;
     pulse?: boolean;
-    floatingParticles?: boolean;
+    floatingParticles?: boolean; // Kept in interface, but logic removed
 }
 
+// Function to handle counting animation (kept as it doesn't relate to 3D tilt/particles)
 function useCountUp(target: number, duration = 1200) {
     const [count, setCount] = useState(0);
     useEffect(() => {
@@ -34,6 +35,7 @@ function useCountUp(target: number, duration = 1200) {
     return count;
 }
 
+// Function to respect user's motion preference (kept)
 function usePrefersReducedMotion() {
     const [reduced, setReduced] = useState(false);
     useEffect(() => {
@@ -110,7 +112,7 @@ export default function UltraStat({
     onCTA,
     glow = true,
     pulse = true,
-    floatingParticles = true,
+    floatingParticles = false, // NOTE: Changed default to false and removed Particles component
 }: UltraStatProps) {
 
     const reduced = usePrefersReducedMotion();
@@ -125,7 +127,7 @@ export default function UltraStat({
     };
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    
+
     let currentSize: UltraStatProps['size'] = size;
     let responsiveRootSize: number;
 
@@ -135,7 +137,7 @@ export default function UltraStat({
     } else {
         responsiveRootSize = sizeMap[size].root;
     }
-    
+
     const cfg = sizeMap[currentSize];
 
     const radius = cfg.inner / 2 - 8;
@@ -158,13 +160,13 @@ export default function UltraStat({
             if (t < 1) requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
-    }, [circumference, progressNormalized, reduced]);
+    }, [progressNormalized, reduced, circumference]);
 
     useEffect(() => {
         if (showDetailsPopup) {
             let top = 40;
             let right = 10;
-            
+
             setPopupStyle({
                 top: `${top}px`,
                 right: `${right}px`,
@@ -172,25 +174,7 @@ export default function UltraStat({
         }
     }, [showDetailsPopup]);
 
-
-    const mvX = useMotionValue(0);
-    const mvY = useMotionValue(0);
-    const rotateX = useTransform(mvY, [-50, 50], [10, -10]);
-    const rotateY = useTransform(mvX, [-50, 50], [-12, 12]);
-    
-    const handleMove = useCallback((e: React.PointerEvent) => {
-        if (!rootRef.current) return;
-        const rect = rootRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        mvX.set((x - 0.5) * 80);
-        mvY.set((y - 0.5) * 80);
-    }, []);
-
-    const handleLeave = useCallback(() => {
-        mvX.set(0);
-        mvY.set(0);
-    }, []);
+    // Removed mvX, mvY, rotateX, rotateY, handleMove, handleLeave
 
     const accentGrad = `grad-${accent.replace("#", "")}-${cfg.root}`;
 
@@ -224,57 +208,15 @@ export default function UltraStat({
         );
     }
 
-    function Particles() {
-        const items = Array.from({ length: 18 });
-        const [positions, setPositions] = useState<{ top: number; left: number }[]>([]);
-
-        useEffect(() => {
-            const generated = items.map(() => ({
-                top: Math.random() * 90 + 5,
-                left: Math.random() * 90 + 5,
-            }));
-            setPositions(generated);
-        }, []);
-
-        return (
-            <div className="absolute inset-0 pointer-events-none">
-                {positions.map((pos, i) => (
-                    <motion.span
-                        key={i}
-                        className="absolute w-1.5 h-1.5 rounded-full"
-                        style={{
-                            background: accent,
-                            top: `${pos.top}%`,
-                            left: `${pos.left}%`,
-                            filter: "blur(1px)",
-                        }}
-                        animate={{
-                            opacity: [0, 1, 0],
-                            y: [-6, 6, -6],
-                            x: [-4, 4, -4],
-                            scale: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                            duration: Math.random() * 3 + 3,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.15,
-                        }}
-                    />
-                ))}
-            </div>
-        );
-    }
+    // Removed Particles component
 
     return (
         <div
             ref={rootRef}
-            onPointerMove={handleMove}
-            onPointerLeave={handleLeave}
             tabIndex={0}
             className={`
-                relative select-none rounded-3xl outline-none transform-gpu 
-                w-full max-w-xs mx-auto 
+                relative select-none rounded-3xl outline-none transform-gpu
+                w-full max-w-xs mx-auto
                 sm:w-[${responsiveRootSize}px]
                 md:w-[31%]
                 lg:w-[31%]
@@ -282,12 +224,12 @@ export default function UltraStat({
             `}
             style={{
                 height: isMobile ? responsiveRootSize : cfg.root,
-                perspective: 1600,
+                // Removed perspective: 1600, as it's not needed without 3D tilt
             }}
         >
 
-            <motion.div
-                style={{ rotateX, rotateY }}
+            {/* Replaced motion.div with a regular div and removed rotateX/rotateY style */}
+            <div
                 className="absolute inset-0 rounded-3xl overflow-hidden bg-white/10 border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.25)]"
             />
 
@@ -315,7 +257,7 @@ export default function UltraStat({
                 />
             )}
 
-            {floatingParticles && <Particles />}
+            {/* Removed {floatingParticles && <Particles />} */}
 
             <div className="absolute inset-0 flex items-center justify-center z-10">
                 <svg

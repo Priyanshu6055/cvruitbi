@@ -51,6 +51,7 @@ export default function Navbar() {
     },
     { name: "Program", subLinks: [{ name: "Aarambh", href: "/program" }] },
     { name: "Facility", subLinks: [{ name: "Facilities", href: "/facility" }] },
+        { name: "Events", href: "/events" },
     { name: "Contact Us", href: "/contact" },
   ];
 
@@ -94,7 +95,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* === DESKTOP NAV === */}
-        <nav className="hidden md:flex items-center space-x-8 text-[0.75rem] font-normal text-gray-800">
+        <nav className="hidden md:flex items-center space-x-6 text-[0.65rem] font-normal text-gray-800">
           {links.map((link) =>
             link.subLinks ? (
               <div
@@ -105,7 +106,7 @@ export default function Navbar() {
               >
                 <motion.button
                   whileHover={{ color: "#00d2ef" }}
-                  className="flex items-center gap-1 text-[0.75rem]"
+                  className="flex items-center gap-1 text-[0.65rem]"
                 >
                   {link.name}
                   <motion.div
@@ -147,7 +148,7 @@ export default function Navbar() {
               </div>
             ) : (
               <motion.div key={link.name} whileHover={{ color: "#00d2ef" }}>
-                <Link href={link.href!} className="relative text-[0.75rem]">
+                <Link href={link.href!} className="relative text-[0.65rem]">
                   {link.name}
                   <motion.span
                     className="absolute left-0 bottom-[-3px] h-[2px] bg-[#00d2ef] rounded-full"

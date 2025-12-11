@@ -3,65 +3,44 @@
 import { useRef, useEffect, useState } from "react";
 import EventCard from "@/components/ui/EventCard";
 import Button from "@/components/ui/Button";
+import { getAllEvents } from "@/services/event.service";
+import { getImageUrl } from "@/helpers/image";
 
-// Event Data
-const events = [
-  {
-    image: "/event/36-think-tank.png",
-    title: "36 Think Tank: Business Plan Competition",
-    speaker: "",
-    date: "",
-    time: "",
-    fullDate: { day: "25", monthYear: "JAN 2025" },
-  },
-  {
-    image: "/event/3d-printing.png",
-    title: "3D Printers & Laser Cutter training",
-    speaker: "",
-    date: "",
-    time: "",
-    fullDate: { day: "05", monthYear: "FEB 2025" },
-  },
-  {
-    image: "/event/AICTE-&-MIC-FDP.png",
-    title: "AICTE & MIC FDP on Innovation and Entrepreneurship",
-    speaker: "",
-    date: "",
-    time: "",
-    fullDate: { day: "18", monthYear: "MAR 2025" },
-  },
-  {
-    image: "/event/understanding-intellectual.jpeg",
-    title: "Workshop: Understanding Intellectual Property Rights",
-    speaker: "",
-    date: "",
-    time: "",
-    fullDate: { day: "26", monthYear: "APR 2025" },
-  },
-  {
-    image: "/event/ideacon.jpeg",
-    title: "Ideacon 2025",
-    speaker: "",
-    date: "",
-    time: "",
-    fullDate: { day: "21", monthYear: "MAY 2025" },
-  },
-];
+function getFullDate(dateString: string) {
+  const d = new Date(dateString);
+  return {
+    day: d.getDate(),
+    monthYear: d.toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+  };
+}
 
 export default function EventSection() {
+  const [events, setEvents] = useState<any[]>([]);
   const [showAll, setShowAll] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    (async () => {
+      const res = await getAllEvents();
+      if (res.success && res.data) {
+        const sorted = res.data.reverse();
+        setEvents(sorted.slice(0, 5)); // number of cards 
+      }
+    })();
+  }, []);
+
+  // ------- slider logic (unchanged) ------- //
   let speed = 0;
   let current = 0;
-  let autoSpeed = 0.25; // Slightly slower for smaller UI
+  let autoSpeed = 0.25;
   let inside = false;
   let raf: number;
 
-  // Auto Infinite Scroll
   const animate = () => {
     if (!scrollRef.current || showAll) return;
-
     const el = scrollRef.current;
     const half = el.scrollWidth / 2;
 
@@ -108,13 +87,11 @@ export default function EventSection() {
     }
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
-  }, [showAll]);
+  }, [showAll, events]);
 
   return (
     <section className="py-8 bg-white">
       <div className="container-global px-4">
-
-        {/* Header */}
         <div className="text-center mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Events
@@ -134,33 +111,19 @@ export default function EventSection() {
               ref={scrollRef}
               onMouseEnter={enter}
               onMouseLeave={leave}
-              className="
-                flex gap-3 
-                overflow-x-hidden 
-                py-2 
-                cursor-pointer 
-                select-none 
-                [scrollbar-width:none] 
-                [-ms-overflow-style:none]
-              "
+              className="flex gap-2 overflow-x-hidden py-2 cursor-pointer select-none [scrollbar-width:none] [-ms-overflow-style:none]"
             >
-              {[...events, ...events].map((event, i) => (
+              {[...events, ...events].map((ev, i) => (
                 <div
                   key={i}
-                  className="
-                    min-w-[150px] 
-                    sm:min-w-[170px] 
-                    md:min-w-[200px] 
-                    lg:min-w-[230px] 
-                  "
+                  className="min-w-[150px] sm:min-w-[170px] md:min-w-[200px] lg:min-w-[230px]"
                 >
                   <EventCard
-                    image={event.image}
-                    title={event.title}
-                    speaker={event.speaker}
-                    date={event.date}
-                    time={event.time}
-                    fullDate={event.fullDate}
+                    image={getImageUrl(ev.title_img)}
+                    title={ev.event_name}
+                    description={ev.event_desc} 
+                    speaker={ev.key_speaker}
+                    fullDate={getFullDate(ev.event_date)}
                   />
                 </div>
               ))}
@@ -168,7 +131,6 @@ export default function EventSection() {
           </div>
         )}
 
-        {/* View All Button */}
         {!showAll && (
           <div className="flex justify-center mt-5">
             <Button className="text-xs px-4 py-1.5" onClick={() => setShowAll(true)}>
@@ -177,19 +139,16 @@ export default function EventSection() {
           </div>
         )}
 
-        {/* Grid View */}
         {showAll && (
           <>
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {events.map((event, i) => (
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-4">
+              {events.map((ev, i) => (
                 <EventCard
                   key={i}
-                  image={event.image}
-                  title={event.title}
-                  speaker={event.speaker}
-                  date={event.date}
-                  time={event.time}
-                  fullDate={event.fullDate}
+                  image={getImageUrl(ev.title_img)}
+                  title={ev.event_name}
+                  speaker={ev.key_speaker}
+                  fullDate={getFullDate(ev.event_date)}
                 />
               ))}
             </div>

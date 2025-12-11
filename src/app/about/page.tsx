@@ -21,7 +21,7 @@ export default function AboutPage() {
         "
       >
         {/* Image (Smaller) */}
-        <div className="w-full md:w-1/2 flex justify-center">
+        <div className="w-full md:w-1/2">
           <img
             src="/images/02.webp"
             alt="About CVRU iTBI"

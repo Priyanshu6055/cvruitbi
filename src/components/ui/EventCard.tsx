@@ -1,32 +1,41 @@
 "use client";
 
-import Image from "next/image";
-
 export default function EventCard({
   image,
   title,
   speaker,
+  description,
   date,
   time,
   fullDate,
+}: {
+  image: string;
+  title: string;
+  speaker?: string;
+  description?: string;
+  date?: string;
+  time?: string;
+  fullDate: { day: number; monthYear: string };
 }) {
   return (
     <div
       className="
       w-full 
-      max-w-[175px] sm:max-w-[190px] md:max-w-[210px]   /* 30% smaller */
+      max-w-[175px] sm:max-w-[190px] md:max-w-[210px]
       rounded-md shadow sm:shadow-md border border-[#00000020]
       overflow-hidden bg-white
     "
     >
       {/* IMAGE SECTION */}
       <div className="relative w-full h-28 xs:h-32 sm:h-36 md:h-40">
-        <Image src={image} alt={title} fill className="object-cover" />
+        <img
+          src={encodeURI(image)}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
 
-        {/* Speaker */}
         {speaker && (
           <div
             className="
@@ -40,16 +49,15 @@ export default function EventCard({
         )}
       </div>
 
-      {/* CONTENT SECTION */}
-      <div className="p-1.5 h-[32px] sm:h-[36px] flex items-start">
+      {/* CONTENT */}
+      <div className="p-1.5 h-[32px] sm:h-[36px] flex items-center">
         <h2 className="text-[10px] sm:text-xs font-bold text-gray-900 leading-tight line-clamp-2">
           {title}
         </h2>
       </div>
 
-      {/* BOTTOM SECTION */}
+      {/* DATE */}
       <div className="flex">
-        {/* DATE BOX */}
         <div
           className="
             text-white rounded-[2px] bg-[#ececec80] 
@@ -78,7 +86,7 @@ export default function EventCard({
             text-gray-700 leading-tight
           "
         >
-          {title.toUpperCase()}
+          <p className="line-clamp-3">{description}</p>
         </div>
       </div>
     </div>

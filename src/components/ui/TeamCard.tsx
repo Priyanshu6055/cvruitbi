@@ -41,8 +41,7 @@ function HoverCard({ member }: { member: Member }) {
   const [hover, setHover] = useState(false);
   const isCEO = member.role === "ceo";
 
-  /** ---------- CARD SIZE — 50% SMALLER ---------- **/
-  const cardWidth = isCEO ? "w-[180px]" : "w-[150px]"; // was 260 / 220
+  const cardWidth = isCEO ? "w-[180px]" : "w-[150px]";
   const cardHeight = hover
     ? isCEO
       ? "h-[180px]"
@@ -51,9 +50,8 @@ function HoverCard({ member }: { member: Member }) {
     ? "h-[160px]"
     : "h-[140px]";
 
-  /** ---------- IMAGE SIZE — 50% SMALLER ---------- **/
-  const imgSize = isCEO ? "w-[75px] h-[75px]" : "w-[60px] h-[60px]"; // was 140 / 120
-  const hoverTop = isCEO ? "-top-8" : "-top-6"; // was -16 / -14
+  const imgSize = isCEO ? "w-[75px] h-[75px]" : "w-[60px] h-[60px]";
+  const hoverTop = isCEO ? "-top-8" : "-top-6";
 
   return (
     <div
@@ -63,10 +61,10 @@ function HoverCard({ member }: { member: Member }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* ---------- IMAGE (50% smaller) ---------- */}
+      {/* ---------- IMAGE (Grow on hover) ---------- */}
       <div
         className={`absolute ${imgSize} transition-all duration-500
-          ${hover ? `${hoverTop} scale-90` : "top-2"}`}
+          ${hover ? `${hoverTop} scale-110` : "top-2 scale-100"}`}
       >
         <Image
           src={member.photo}
@@ -77,70 +75,82 @@ function HoverCard({ member }: { member: Member }) {
         />
       </div>
 
-      {/* ---------- CONTENT ---------- */}
+      {/* ---------- CONTENT (with DELAY) ---------- */}
       <div
         className={`absolute w-full px-2 text-center transition-all duration-500
           ${hover ? "top-[60px] h-[110px]" : "top-[85px] h-[15px]"}`}
       >
+        {/* Name (instant or slight delay) */}
         <h2
-          className="text-sm font-bold" /* was text-lg */
+          className={`text-sm font-bold ${
+            hover ? "opacity-100" : "opacity-100"
+          }`}
           style={{ color: member.color }}
         >
           {member.name}
         </h2>
 
-        {hover && (
-          <p className="text-gray-700 mt-1 text-[10px]">{member.subname}</p>
-        )}
+        {/* Subname (delayed fade-in + slide-up) */}
+        <p
+          className={`text-gray-700 mt-1 text-[10px] transition-all duration-300 delay-150
+            ${hover ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+          `}
+        >
+          {member.subname}
+        </p>
 
-        {hover && (
-          <div className="flex justify-center gap-2 mt-2">
-            {member.socials?.instagram && (
-              <a
-                href={member.socials.instagram}
-                target="_blank"
-                className="p-1.5 rounded-full text-white hover:scale-110 transition"
-                style={{ background: member.color }}
-              >
-                <AiFillInstagram size={12} /> {/* was 18 */}
-              </a>
-            )}
+        {/* Social Icons (bigger delay + fade + slide) */}
+        <div
+          className={`flex justify-center gap-2 mt-2 transition-all duration-300 delay-300
+            ${hover ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+          `}
+        >
+          {member.socials?.instagram && (
+            <a
+              href={member.socials.instagram}
+              target="_blank"
+              className="p-1.5 rounded-full text-white hover:scale-110 transition"
+              style={{ background: member.color }}
+            >
+              <AiFillInstagram size={12} />
+            </a>
+          )}
 
-            {member.socials?.twitter && (
-              <a
-                href={member.socials.twitter}
-                target="_blank"
-                className="p-1.5 rounded-full text-white hover:scale-110 transition"
-                style={{ background: member.color }}
-              >
-                <AiOutlineTwitter size={12} />
-              </a>
-            )}
+          {member.socials?.twitter && (
+            <a
+              href={member.socials.twitter}
+              target="_blank"
+              className="p-1.5 rounded-full text-white hover:scale-110 transition"
+              style={{ background: member.color }}
+            >
+              <AiOutlineTwitter size={12} />
+            </a>
+          )}
 
-            {member.socials?.linkedin && (
-              <a
-                href={member.socials.linkedin}
-                target="_blank"
-                className="p-1.5 rounded-full text-white hover:scale-110 transition"
-                style={{ background: member.color }}
-              >
-                <AiFillLinkedin size={12} />
-              </a>
-            )}
+          {member.socials?.linkedin && (
+            <a
+              href={member.socials.linkedin}
+              target="_blank"
+              className="p-1.5 rounded-full text-white hover:scale-110 transition"
+              style={{ background: member.color }}
+            >
+              <AiFillLinkedin size={12} />
+            </a>
+          )}
 
-            {member.socials?.github && (
-              <a
-                href={member.socials.github}
-                target="_blank"
-                className="p-1.5 rounded-full text-white hover:scale-110 transition"
-                style={{ background: member.color }}
-              >
-                <AiFillGithub size={12} />
-              </a>
-            )}
-          </div>
-        )}
+          {member.socials?.github && (
+            <a
+              href={member.socials.github}
+              target="_blank"
+              className="p-1.5 rounded-full text-white hover:scale-110 transition"
+              style={{ background: member.color }}
+            >
+              <AiFillGithub size={12} />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+

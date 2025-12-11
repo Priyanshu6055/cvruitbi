@@ -3,6 +3,9 @@ import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import SmoothScrollProvider from "./lenis";
 import LoadingLayoutWrapper from "@/components/layout/LoadingLayoutWrapper";
+import HideNavbarAdmin from "@/components/layout/HideNavbarWrapper";
+import HideFooterAdmin from "@/components/layout/HideFooterWrapper";
+
 
 export const metadata = {
 
@@ -77,13 +80,15 @@ export default function RootLayout({
 
       <body className="min-h-screen flex flex-col font-[Poppins] bg-white text-gray-900">
         <SmoothScrollProvider>
-          <Navbar />
+
+          <HideNavbarAdmin />
 
           <LoadingLayoutWrapper>
             <main className="flex-grow">{children}</main>
           </LoadingLayoutWrapper>
 
-          <Footer />
+          <HideFooterAdmin />
+
         </SmoothScrollProvider>
       </body>
     </html>

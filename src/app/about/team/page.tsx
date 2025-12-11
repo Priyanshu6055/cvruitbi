@@ -66,12 +66,12 @@ export default function TeamPage() {
         <hr className="opacity-[10%]" />
 
         {/* CEO Row */}
-        <div className="flex justify-center mb-24 mt-10">
+        <div className="flex justify-center mb-16 mt-10">
           <TeamCards members={[ceo]} />
         </div>
 
         {/* Other Members Row */}
-        <div className="flex flex-wrap justify-center gap-10">
+        <div className="flex flex-wrap justify-center gap-5">
           <TeamCards members={others} />
         </div>
       </section>

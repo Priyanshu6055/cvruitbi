@@ -61,10 +61,10 @@ export default function ThreeDWaveCard({
         w-full
         max-w-[200px]
         sm:max-w-[220px]
-        md:max-w-[240px]       
+        md:max-w-[325px]       
         h-auto
         min-h-[160px]                 
-        p-3 sm:p-4
+        p-3 sm:p-6 sm:py-9
         transition-all duration-500
       "
     >
