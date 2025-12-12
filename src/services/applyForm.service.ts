@@ -23,7 +23,12 @@ export interface ApplyFormResponse {
   data: ApplyFormItem[];
 }
 
-export async function fetchAllApplyForms(): Promise<ApplyFormResponse> {
-  const res = await api.get<ApplyFormResponse>("/apply-form");
+export async function fetchAllApplyForms(stage?: string, year?: string): Promise<ApplyFormResponse> {
+  const params: any = {};
+
+  if (stage) params.stage = stage;
+  if (year) params.year = year;
+
+  const res = await api.get<ApplyFormResponse>("/apply-form", { params });
   return res.data;
 }
