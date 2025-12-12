@@ -45,7 +45,7 @@ export default function FilterBar({
                     gap-3
                     items-center
                     "
-            >
+                >
                 {/* Stage Filter */}
                 <select
                     className="border p-2 rounded w-full text-[11px] bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500"
