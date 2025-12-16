@@ -64,10 +64,10 @@ export default function FormList({ forms, loading }: Props) {
   }
 
   return (
-    <div className="p-3 sm:p-4">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">
+    <div className="">
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">
         Startup Applications ({forms.length})
-      </h2>
+      </h1>
 
       {/* Smaller grid & cards */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

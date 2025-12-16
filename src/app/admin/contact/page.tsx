@@ -100,11 +100,10 @@ export default function AdminContacts() {
             <button
               key={index}
               onClick={() => setCurrentPage(page as number)}
-              className={`px-4 py-2 rounded-full font-medium transition-colors text-sm ${
-                currentPage === page
+              className={`px-4 py-2 rounded-full font-medium transition-colors text-sm ${currentPage === page
                   ? "bg-blue-600 text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
-              }`}
+                }`}
             >
               {page}
             </button>
@@ -124,11 +123,10 @@ export default function AdminContacts() {
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">
-        📬 Contact Messages
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">Contact Messages
       </h1>
 
-      <div className="flex items-center mb-8 bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <div className="flex items-center mt-4 mb-4 bg-white p-3 rounded-lg shadow border">
         <Search className="w-5 h-5 text-gray-400 mr-3" />
         <input
           type="text"
@@ -138,7 +136,7 @@ export default function AdminContacts() {
             setSearchTerm(e.target.value);
             setCurrentPage(1);
           }}
-          className="flex-grow p-2 text-gray-700 focus:outline-none"
+          className="flex-grow text-gray-700 focus:outline-none"
         />
         <span className="text-sm text-gray-500 ml-4 hidden sm:inline">
           Results: {filteredContacts.length}
@@ -188,9 +186,8 @@ export default function AdminContacts() {
                 {paginatedContacts.map((item, index) => (
                   <tr
                     key={item._id}
-                    className={`hover:bg-blue-50 transition-colors ${
-                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } md:table-row block mb-4 md:mb-0 p-4 md:p-0 border border-gray-200 md:border-none rounded-lg`}
+                    className={`hover:bg-blue-50 transition-colors ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } md:table-row block mb-4 md:mb-0 p-4 md:p-0 border border-gray-200 md:border-none rounded-lg`}
                   >
                     <td className="p-2 md:py-4 md:px-6 whitespace-nowrap block md:table-cell text-sm text-gray-800" data-label="Name:">
                       <span className="md:hidden font-bold text-gray-600 mr-2">Name:</span>

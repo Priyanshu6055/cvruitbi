@@ -87,7 +87,7 @@ export default function CreateEventPage() {
         {/* max-w-3xl for the 40% smaller container size */}
         <div className="w-full max-w-3xl bg-white shadow-xl rounded-lg p-6 md:p-8 space-y-8">
 
-          <h2 className="text-2xl font-bold text-gray-800 border-b pb-4">📝 Create New Event</h2>
+          <h2 className="text-2xl font-bold text-gray-800 border-b pb-4">Create New Event</h2>
 
           {/* Form Content */}
           <div className="space-y-6">

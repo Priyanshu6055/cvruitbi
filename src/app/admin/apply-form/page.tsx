@@ -47,7 +47,7 @@ export default function AdminApplyForms() {
 
             {/* Header Row */}
             <div className="flex justify-between items-center">
-                <h1 className="text-xl font-bold">🚀 Startup Applications</h1>
+                <h1 className="text-3xl font-bold">Startup Applications</h1>
                 <ExportExcelButton data={filteredForms} />
             </div>
 

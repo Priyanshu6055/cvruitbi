@@ -107,7 +107,7 @@ export default function EventsPage() {
     <ProtectedRoute>
       <div className="bg-white min-h-screen p-6">
         {/* scale down whole UI */}
-        <div className="scale-[0.7] origin-top mx-auto max-w-6xl">
+        <div className="origin-top">
           {/* Header */}
           <header className="flex justify-between items-center mb-6 border-b pb-3">
             <h1 className="text-3xl font-bold text-[#002b5b]">
@@ -123,7 +123,7 @@ export default function EventsPage() {
           </header>
 
           {/* Filters */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mb-6">
             {/* Search */}
             <div className="relative w-full max-w-md">
               <input
