@@ -116,7 +116,7 @@ export default function ServicesSection() {
 
   return (
     <section className="py-8 bg-white">
-      <div className="container-global px-3">
+      <div className="container-global px-3 py-10">
 
         {/* Small Title */}
         <div className="text-center mb-5">
@@ -141,7 +141,7 @@ export default function ServicesSection() {
               className="
                 flex gap-4
                 overflow-x-hidden 
-                py-2 
+                py-10 
                 select-none 
                 [scrollbar-width:none]
                 [-ms-overflow-style:none]

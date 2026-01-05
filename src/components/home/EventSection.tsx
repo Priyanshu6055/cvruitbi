@@ -88,12 +88,12 @@ export default function EventSection() {
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
   }, [showAll, events]);
-
+ 
   return (
     <section className="py-8 bg-white">
       <div className="container-global px-4">
         <div className="text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900">
             Events
           </h2>
           <p className="text-gray-500 text-xs sm:text-sm mt-1">
@@ -111,7 +111,7 @@ export default function EventSection() {
               ref={scrollRef}
               onMouseEnter={enter}
               onMouseLeave={leave}
-              className="flex gap-2 overflow-x-hidden py-2 cursor-pointer select-none [scrollbar-width:none] [-ms-overflow-style:none]"
+              className="flex gap-2 overflow-x-hidden py-10 cursor-pointer select-none [scrollbar-width:none] [-ms-overflow-style:none]"
             >
               {[...events, ...events].map((ev, i) => (
                 <div

@@ -51,7 +51,7 @@ export default function Navbar() {
     },
     { name: "Program", subLinks: [{ name: "Aarambh", href: "/program" }] },
     { name: "Facility", subLinks: [{ name: "Facilities", href: "/facility" }] },
-        { name: "Events", href: "/events" },
+    { name: "Events", href: "/events" },
     { name: "Contact Us", href: "/contact" },
   ];
 
@@ -71,11 +71,10 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       style={{ boxShadow }}
-      className={`fixed top-3 left-0 w-full z-50 transition-all duration-500 ${
-        scrolled
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled
           ? "backdrop-blur-xl bg-white border-b border-[#00d2ef]/40 py-1.5 md:py-1"
           : "backdrop-blur-lg bg-white border-b border-[#00d2ef]/20 py-3 md:py-2"
-      }`}
+        }`}
     >
       <div className="container-global px-4 flex justify-between items-center">
 

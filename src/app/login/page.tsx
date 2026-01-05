@@ -96,14 +96,14 @@ export default function AdminLoginPage() {
               onClick={handleLogin}
               disabled={isLoggingIn}
               className={`
-    w-full text-lg font-semibold relative overflow-hidden
-    bg-gradient-to-r from-blue-500 to-blue-600
-    hover:from-blue-600 hover:to-blue-700
-    text-white py-3 rounded-lg shadow-lg
-    transition-all duration-300 ease-out
-    disabled:opacity-60 disabled:cursor-not-allowed
-    active:scale-[0.98]
-  `}
+                          w-full text-lg font-semibold relative overflow-hidden
+                          bg-gradient-to-r from-blue-500 to-blue-600
+                          hover:from-blue-600 hover:to-blue-700
+                          text-white py-3 rounded-lg shadow-lg
+                          transition-all duration-300 ease-out
+                          disabled:opacity-60 disabled:cursor-not-allowed
+                          active:scale-[0.98]
+                        `}
             >
               {/* Animated background glow */}
               <span

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 .container-global {
-  @apply w-full mx-auto px-4   /* default for mobile/tablet – full width */
-         md:px-8              /* medium screens – little padding */
-         lg:max-w-screen-xl lg:px-24   /* desktop – bigger spacing */
-         xl:max-w-screen-2xl xl:px-48; /* large desktop – same as original */;
+  @apply w-full mx-auto px-4    /* default for mobile/tablet – full width */
+  md:px-8                       /* medium screens */
+  lg:max-w-screen-xl lg:px-24   /* desktop */
+  xl:max-w-screen-2xl xl:px-48; /* large desktop – same as original */
 }
 
 .wave {
@@ -79,11 +79,30 @@ button:hover .wave {
 /* Notice download section in home page css */
 
 @keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-33.33%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
 }
 
 .animate-marquee {
   animation: marquee 15s linear infinite;
   display: inline-flex;
+}
+
+/* Partners Section Home  */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
 }
