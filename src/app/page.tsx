@@ -7,6 +7,7 @@ import EventSection from "@/components/home/EventSection";
 import BoxSection from "@/components/home/BoxSection";
 import BlogSection from "@/components/home/BlogSection";
 import TrustedBySection from "@/components/home/TrustedBySection";
+import ProgramSection from "@/components/home/ProgramsSection";
 
 import PartnersSection from "@/components/home/PartnersSection";
 
@@ -19,6 +20,7 @@ export default function HomePage() {
       {/* <BoxSection/> */}
       {/* <DownloadSection /> */}
       <AboutPreview />
+      <ProgramSection/>
       {/* <BlogSection/> */}
       <ServicesSection />
       <PartnersSection />
