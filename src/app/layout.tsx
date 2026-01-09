@@ -1,7 +1,7 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import SmoothScrollProvider from "./lenis";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import LoadingLayoutWrapper from "@/components/layout/LoadingLayoutWrapper";
 import HideNavbarAdmin from "@/components/layout/HideNavbarWrapper";
 import HideFooterAdmin from "@/components/layout/HideFooterWrapper";
